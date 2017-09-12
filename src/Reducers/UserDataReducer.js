@@ -1,7 +1,7 @@
 /**
  * Created by rabby on 21/08/2017.
  */
-const UserDataReducer = (state = {user:{},login:false}, action = {}) => {
+const UserDataReducer = (state = {user:{},login:false, userArticles:[]}, action = {}) => {
 
     switch (action.type){
 
