@@ -1,7 +1,7 @@
 /**
  * Created by rabby on 21/08/2017.
  */
-const UserDataReducer = (state = {}, action = {user:{}}) => {
+const UserDataReducer = (state = {user:{},login:false}, action = {}) => {
 
     switch (action.type){
 
@@ -24,14 +24,15 @@ const UserDataReducer = (state = {}, action = {user:{}}) => {
 
 
     function registerSuccess(state, action){
-        var usr = action.data;
-        return {...state, user:usr};
+
+       // var usr = action.data;
+        return {...state,login:true};
     }
 
 
     function loginSuccess(state, action){
-        var usr = action.data;
-        return {...state, user:usr};
+        //var usr = action.data;
+        return {...state, user:action.data.user};
     }
 
    /* function registerFailed(){

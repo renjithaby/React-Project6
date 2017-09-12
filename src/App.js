@@ -13,6 +13,13 @@ class App extends Component {
 
         console.log("next props....");
         console.log(nextProps.userData);
+
+      if(nextProps.userData.login){
+        this.props.history.push('/signin');
+      }
+      if(nextProps.userData.user._id){
+        this.props.history.push('/feed');
+      }
     }
   render() {
     return (
@@ -20,13 +27,15 @@ class App extends Component {
           <Header currentUser = {this.props.userData} appName= {"Thoughts!"}/>
           <Route path = "/signup"  component = {()=>  <SignUpPage  registerUser = {this.props.registerUser}  />} />
           <Route path = "/signin"  component = {()=>  <SignInPage  loginUser = {this.props.loginUser} />} />
-          <Route path ="/feed" component ={()=><FeedContainer currentTab="local"/>}/>
+          <Route path ="/feed" component ={()=><FeedContainer />}/>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+    console.log(" fetching the statess.....");
+    console.log(state);
     return {
         userData: state.userData
 

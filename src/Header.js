@@ -11,7 +11,7 @@ const LoggedOutView = props => {
     if (props.currentUser) {
         return (
             <div>
-                <img src={logo} className="App-logo" alt="logo" />
+
             <ul className="nav navbar-nav pull-xs-right">
 
 
@@ -60,4 +60,6 @@ class Header extends React.Component {
     }
 }
 
+
+/*  <!--  <img src={logo} className="App-logo" alt="logo" /> --> */
 export default Header;

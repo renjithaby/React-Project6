@@ -2,7 +2,7 @@
  * Created by rabby on 09/08/17.
  */
 
-//import dataApi from '../api/dataApi'
+import dataApi from '../api/dataApi'
 
 export var usersList = [];
 
@@ -32,6 +32,32 @@ export const loginFailed = () => {
     };
 }
 
+export const getGlobalFeedSuccess = (data) => {
+    return {
+        type:"GLOBAL_FEED_SUCCESS",
+        data: data
+    };
+}
+
+export const getGlobalFeedFailed = () => {
+    return {
+        type: "GLOBAL_FEED_FAILED"
+    };
+}
+
+export const getYourFeedSuccess = (data) => {
+    return {
+        type:"YOUR_FEED_SUCCESS",
+        data: data
+    };
+}
+
+export const getYourFeedFailed = () => {
+    return {
+        type: "YOUR_FEED_FAILED"
+    };
+}
+
 
 
 
@@ -39,8 +65,7 @@ export const loginFailed = () => {
 export function loginUser(usr) {
     return function(dispatch) {
 
-        dispatch(registrationSuccess(usersList[0]));
-        /*return dataApi.login(usr).then(data => {
+        return dataApi.login(usr).then(data => {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="failed"){
@@ -50,28 +75,60 @@ export function loginUser(usr) {
             }
         }).catch(error => {
             throw(error);
-        });*/
+        });
     };
 }
 
 
 export function registerUser(usr) {
     return function(dispatch) {
-        usersList = [...usersList,{id :Date.now(), name :usr.username, password : usr.password, email: usr.email}];
-        dispatch(registrationSuccess(usersList[0]));
-       /* return dataApi.register(usr).then(data => {
+        return dataApi.register(usr).then(data => {
             console.log("....response datat");
             console.log(data);
-            if(data.result ==="registersuccess"){
+            if(data.result ==="success"){
                 dispatch(registrationSuccess());
             }else {
                 dispatch(registrationFailed());
             }
         }).catch(error => {
             throw(error);
-        });*/
+        });
     };
 }
+
+export function getGlobalFeed() {
+    return function(dispatch) {
+        return dataApi.getGlobalFeed().then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(getGlobalFeedSuccess(data.article));
+            }else {
+                dispatch(getGlobalFeedFailed());
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function getYourFeed(usr) {
+    return function(dispatch) {
+        return dataApi.getYourFeed(usr).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(getYourFeedSuccess(data.article));
+            }else {
+                dispatch(getYourFeedFailed());
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
 
 /*
 export function addAddress(usr) {

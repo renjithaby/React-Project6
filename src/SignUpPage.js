@@ -15,6 +15,14 @@ import logo from './logo.svg';
         this.state = {username :"username", password :"password", email :""};
     }
 
+     componentWillReceiveProps(props){
+
+        if(props.authData.userLogin){
+            this.props.history.push('/Home/Add');
+        }
+       //this.props.router.push('/');
+    }
+
 
     handleUserNameChange(event) {
         this.setState({username : event.target.value});
@@ -37,11 +45,6 @@ import logo from './logo.svg';
         return false;
     }
 
-    handleSignIn(event) {
-        event.preventDefault();
-        this.props.loginUser({username:this.state.username,password: this.state.password});
-        return false;
-    }
 
 
     render() {

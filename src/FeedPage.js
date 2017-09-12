@@ -16,14 +16,16 @@ class FeedPage extends React.Component {
     }
     componentWillMount(props){
 
-        console.log("this.props.type....");
+        console.log("this is the feed page  componentWillMount....." );
         console.log(this.props.type);
+        //this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":this.props.type});
     }
 
     componentWillReceiveProps(nextProps){
 
-        console.log("next props....");
-        console.log(nextProps.userData);
+       console.log("this is the feed page  componentWillReceiveProps....." );
+       console.log(nextProps.type);
+       //this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":nextProps.type});
     }
 
     render() {
