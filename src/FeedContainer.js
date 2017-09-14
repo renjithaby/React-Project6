@@ -43,7 +43,8 @@ class Feed extends Component {
                     <li className ="nav-item"><Tab name={"global"}  active ={this.state.currentFeed === "global"?true:false} setCurrentFeed = { this.setCurrentFeed.bind(this)}/></li>
                 </ul>
                 <div>
-                    <FeedPage  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed} />
+                    <FeedPage  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
+                    showUserProfile = {this.props.showUserProfile.bind(this)}/>
                 </div>
 
             </div>
@@ -75,6 +76,10 @@ const mapDispatchToProps = dispatch => {
             }else{
                 dispatch(Actions.getYourFeed(user));
             }
+        },
+
+        showUserProfile: user =>{
+             dispatch(Actions.updateProfileUser(user));
         }
     }
 }

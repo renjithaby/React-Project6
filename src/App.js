@@ -21,17 +21,17 @@ class App extends Component {
         console.log("calling apppppp ");
         console.log(nextProps.userData);
 
-      if(nextProps.userData.login){
+      /*if(nextProps.userData.login){
         this.props.history.push('/signin');
-      }
+      }*/
       if(nextProps.userData.user && nextProps.userData.user._id){
-        this.props.history.push('/feed');
+        //this.props.history.push('/feed');
       }
     }
   render() {
     return (
       <div>
-          <Header currentUser = {this.props.userData} appName= {"Thoughts!"}/>
+          <Header currentUser = {this.props.userData.user} appName= {"Thoughts!"}  showUserProfile={this.props.showUserProfile.bind(this)}/>
           <Route path = "/signup"  component = {()=>  <SignUpPage  registerUser = {this.props.registerUser}  />} />
           <Route path = "/signin"  component = {()=>  <SignInPage  loginUser = {this.props.loginUser} />} />
           <Route path ="/feed" component ={()=><FeedContainer />}/>
@@ -65,6 +65,9 @@ const mapDispatchToProps = dispatch => {
         },
         getUserArticles:userid => {
             dispatch(Actions.getUserArticles(userid));
+        },
+        showUserProfile: user =>{
+             dispatch(Actions.updateProfileUser(user));
         }
 
 

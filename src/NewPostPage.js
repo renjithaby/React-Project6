@@ -31,7 +31,7 @@ class NewPostPage extends React.Component {
         event.preventDefault();
         //alert('A name was submitted: ' + this.state.username);
 
-        this.props.addNewArticle({title:this.state.title,content: this.state.content, authorId :this.props.currentUser._id});
+        this.props.addNewArticle({title:this.state.title,content: this.state.content, authorId :this.props.currentUser._id, author:{ authorId :this.props.currentUser._id, authorName:this.props.currentUser.username}});
         return false;
     }
 

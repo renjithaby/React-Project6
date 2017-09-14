@@ -1,7 +1,7 @@
 /**
  * Created by rabby on 12/09/2017.
  */
-const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], userArticles:[]}, action = {}) => {
+const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArticles:[]}, action = {}) => {
 
 	switch (action.type){
 
@@ -50,7 +50,7 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], userArticles:[]}
 	}
 
     function getUserArticleSuccess(state,action){
-        return  {...state, userArticles:action.data};
+        return  {...state, profileUserArticles:action.data};
     }
 
     function getUserArticleFailed(state,action){

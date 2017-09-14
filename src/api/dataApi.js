@@ -215,6 +215,48 @@ class dataApi {
         });
 
     }
+
+    static addFollowing(data) {
+
+        const request = new Request('http://localhost:3000/user/addfollowing',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(data)
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static removeFollowing(data) {
+
+        const request = new Request('http://localhost:3000/user/removefollowing',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(data)
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+
 }
 
 export default dataApi;

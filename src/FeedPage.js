@@ -35,7 +35,7 @@ class FeedPage extends React.Component {
             <div className ="container">
                <ul>
                     {this.props.feed.map((item) =>
-                        <ArticleItem key ={item._id} article = {item} />
+                        <ArticleItem key ={item._id} article = {item} showUserProfile = {this.props.showUserProfile.bind(this)}/>
                     )}
                 </ul>
             </div>

@@ -13,7 +13,7 @@ const LoggedOutView = props => {
             <ul className="nav navbar-nav pull-xs-right">
 
                 <li className="nav-item">
-                    <Link to="/home" className="nav-link">
+                    <Link to="/feed" className="nav-link">
                         Home
                     </Link>
                 </li>
@@ -44,7 +44,7 @@ const LoggedInView = props => {
                 <ul className="nav navbar-nav pull-xs-right">
 
                     <li className="nav-item">
-                        <Link to="/home" className="nav-link">
+                        <Link to="/feed" className="nav-link">
                             Home
                         </Link>
                     </li>
@@ -55,9 +55,9 @@ const LoggedInView = props => {
                         </Link>
                     </li>
 
-                    <li className="nav-item">
-                        <Link to="userprofile" className="nav-link">
-                    {props.currentUser.user.username}
+                    <li onClick ={props.showUserProfile.bind(this)} className="nav-item">
+                        <Link to=""  className="nav-link">
+                            {props.currentUser.username}
                         </Link>
                     </li>
 
@@ -70,6 +70,11 @@ const LoggedInView = props => {
 };
 
 class Header extends React.Component {
+
+    showUserProfile(){
+        this.props.showUserProfile({"_id":this.props.currentUser._id, "name":this.props.currentUser.username});
+    }
+
     render() {
         return (
             <nav className="navbar navbar-light">
@@ -79,8 +84,8 @@ class Header extends React.Component {
                         {this.props.appName}
                     </Link>
 
-                {!this.props.currentUser.user._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
-                {this.props.currentUser.user._id? <LoggedInView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
+                {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
+                {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)} currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
 
                 </div>
             </nav>

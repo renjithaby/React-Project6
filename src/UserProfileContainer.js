@@ -19,14 +19,16 @@ class UserProfile extends Component {
 
     componentWillMount(props){
         console.log("UserProfile  ..........component will mount...");
-        this.props.getUserArticles(this.props.userData.user._id);
+        this.props.getUserArticles(this.props.userData.profileUser._id);
 
     }
 
     render() {
         return (
             <div>
-                <UserProfilePage currentUser = {this.props.userData.user} userArticles = {this.props.articleData.userArticles}/>
+                <UserProfilePage loggedInUser = {this.props.userData.user} profileUser = {this.props.userData.profileUser} userArticles = {this.props.articleData.profileUserArticles} showUserProfile = {this.props.showUserProfile.bind(this)}
+                    addFollowing = {this.props.addFollowing.bind(this)} removeFollowing ={this.props.removeFollowing.bind(this)}
+               />
             </div>
         );
     }
@@ -47,7 +49,17 @@ const mapDispatchToProps = dispatch => {
 
        getUserArticles:userid => {
             dispatch(Actions.getUserArticles(userid));
+        },
+        showUserProfile: user =>{
+             dispatch(Actions.updateProfileUser(user));
+        },
+        addFollowing: data => {
+            dispatch(Actions.addFollowing(data));
+        },
+        removeFollowing: data => {
+            dispatch(Actions.removeFollowing(data));
         }
+
 
     }
 }

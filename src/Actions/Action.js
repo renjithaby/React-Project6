@@ -90,6 +90,48 @@ export const getUserArticlesFailed = (data) => {
     };
 }
 
+export const updateProfileUser = (data) => {
+    return {
+        type: "UPDATE_PROFILE_USER",
+        data: data
+
+    };
+}
+
+export const addFollowingSuccess = (data) => {
+    return {
+        type: "ADD_FOLLOWING_SUCCESS",
+        data: data
+
+    };
+}
+
+export const addFollowingFailed = (data) => {
+    return {
+        type: "ADD_FOLLOWING_FAILED",
+        data: data
+
+    };
+}
+
+export const removeFollowingSuccess = (data) => {
+    return {
+        type: "REMOVE_FOLLOWING_SUCCESS",
+        data: data
+
+    };
+}
+
+export const removeFollowingFailed = (data) => {
+    return {
+        type: "REMOVE_FOLLOWING_FAILED",
+        data: data
+
+    };
+}
+
+
+
 
 
 export function loginUser(usr) {
@@ -192,6 +234,42 @@ export function getUserArticles(userid) {
         });
     };
 }
+
+
+export function addFollowing(data) {
+    return function(dispatch) {
+        return dataApi.addFollowing(data).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(addFollowingSuccess(data));
+            }else if(data.result ==="failed"){
+                dispatch(addFollowingFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function removeFollowing(data) {
+    return function(dispatch) {
+        return dataApi.removeFollowing(data).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(removeFollowingSuccess(data));
+            }else if(data.result ==="failed"){
+                dispatch(removeFollowingFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+
 
 /*
 export function addAddress(usr) {
