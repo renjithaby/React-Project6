@@ -13,9 +13,10 @@ export const registrationSuccess = (data) => {
     };
 }
 
-export const registrationFailed = () => {
+export const registrationFailed = (data) => {
     return {
-        type: "REGISTER_FAILED"
+        type: "REGISTER_FAILED",
+        data:data
     };
 }
 
@@ -26,9 +27,10 @@ export const loginSuccess = (data) => {
     };
 }
 
-export const loginFailed = () => {
+export const loginFailed = (data) => {
     return {
-        type: "LOGIN_FAILED"
+        type: "LOGIN_FAILED",
+        data:data
     };
 }
 
@@ -58,7 +60,35 @@ export const getYourFeedFailed = () => {
     };
 }
 
+export const addNewArticleSuccess = (data) => {
+    return {
+        type:"ADD_ARTICLE_SUCCESS",
+        data: data
+    };
+}
 
+export const addNewArticleFailed = (data) => {
+    return {
+        type: "ADD_ARTICLE_FAILED",
+        data: data
+
+    };
+}
+
+export const getUserArticlesSuccess = (data) => {
+    return {
+        type:"GET_USER_ARTICLE_SUCCESS",
+        data: data
+    };
+}
+
+export const getUserArticlesFailed = (data) => {
+    return {
+        type: "GET_USER_ARTICLE_FAILED",
+        data: data
+
+    };
+}
 
 
 
@@ -69,7 +99,7 @@ export function loginUser(usr) {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="failed"){
-                dispatch(loginFailed());
+                dispatch(loginFailed(data));
             }else {
                 dispatch(loginSuccess(data));
             }
@@ -85,10 +115,10 @@ export function registerUser(usr) {
         return dataApi.register(usr).then(data => {
             console.log("....response datat");
             console.log(data);
-            if(data.result ==="success"){
-                dispatch(registrationSuccess());
+            if(data.result ==="failed"){
+                dispatch(registrationFailed(data));
             }else {
-                dispatch(registrationFailed());
+                dispatch(registrationSuccess());
             }
         }).catch(error => {
             throw(error);
@@ -129,6 +159,39 @@ export function getYourFeed(usr) {
 }
 
 
+
+export function addNewArticle(article) {
+    return function(dispatch) {
+        return dataApi.addNewArticle(article).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(addNewArticleSuccess(data.article));
+            }else if(data.result ==="failed"){
+                dispatch(addNewArticleFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+export function getUserArticles(userid) {
+    return function(dispatch) {
+        return dataApi.getUserArticles(userid).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(getUserArticlesSuccess(data.article));
+            }else if(data.result ==="failed"){
+                dispatch(getUserArticlesFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
 
 /*
 export function addAddress(usr) {

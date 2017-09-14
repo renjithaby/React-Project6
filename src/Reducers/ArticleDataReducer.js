@@ -1,7 +1,7 @@
 /**
  * Created by rabby on 12/09/2017.
  */
-const ArticleDataReducer = (state = {globalFeed:{},yourFeed:{}}, action = {}) => {
+const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], userArticles:[]}, action = {}) => {
 
 	switch (action.type){
 
@@ -17,33 +17,47 @@ const ArticleDataReducer = (state = {globalFeed:{},yourFeed:{}}, action = {}) =>
 		case "YOUR_FEED_FAILED" :
 		    return getYourFeedFailed(state,action);
 
+        case "GET_USER_ARTICLE_SUCCESS":
+            return getUserArticleSuccess(state,action);
+
+        case "GET_USER_ARTICLE_FAILED":
+            return getUserArticleFailed(state,action);
+
 		default:
 		    return state;
 		    break;
 	}
 
 
+
 	function getGlobalFeedSuccess(state, action){
 
-	// var usr = action.data;
-		console.log("global feed action data");
-		console.log(action.data);
 		return {...state,globalFeed:action.data};
 	}
 
 
 	function getGlobalFeedFailed(state, action){
 	//var usr = action.data;
-		return {...state};// user:action.data.user};
+		return {...state};
 	}
 
 	function getYourFeedSuccess(){
-		return {...state,yourFeed:action.data};
+		return {...state, yourFeed:action.data};
 	}
 
 	function getYourFeedFailed(){
 		return {...state};
 	}
+
+    function getUserArticleSuccess(state,action){
+        return  {...state, userArticles:action.data};
+    }
+
+    function getUserArticleFailed(state,action){
+        window.alert(action.data.message);
+        return {...state};
+    }
+
 
 
 }

@@ -5,7 +5,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from './logo.svg';
-
+import ArticleItem from './ArticleItem';
 
 
 
@@ -30,8 +30,17 @@ class FeedPage extends React.Component {
 
     render() {
         return (
+            <div>
            <h1> hii this is a {this.props.type} feed </h1>
-        );
+            <div className ="container">
+               <ul>
+                    {this.props.feed.map((item) =>
+                        <ArticleItem key ={item._id} article = {item} />
+                    )}
+                </ul>
+            </div>
+            </div>
+         );
     }
 }
 

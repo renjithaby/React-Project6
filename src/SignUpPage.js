@@ -18,7 +18,7 @@ import logo from './logo.svg';
      componentWillReceiveProps(props){
 
         if(props.authData.userLogin){
-            this.props.history.push('/Home/Add');
+            //this.props.history.push('/Home/Add');
         }
        //this.props.router.push('/');
     }

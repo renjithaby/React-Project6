@@ -7,13 +7,10 @@ import { Link } from 'react-router-dom';
 import logo from './logo.svg';
 
 const LoggedOutView = props => {
-    console.log(props.currentUser);
-    if (props.currentUser) {
         return (
             <div>
 
             <ul className="nav navbar-nav pull-xs-right">
-
 
                 <li className="nav-item">
                     <Link to="/home" className="nav-link">
@@ -37,8 +34,39 @@ const LoggedOutView = props => {
 
            </div>
         );
-    }
-    return null;
+};
+
+
+const LoggedInView = props => {
+        return (
+            <div>
+
+                <ul className="nav navbar-nav pull-xs-right">
+
+                    <li className="nav-item">
+                        <Link to="/home" className="nav-link">
+                            Home
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link to="newpost" className="nav-link">
+                            New Post
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link to="userprofile" className="nav-link">
+                    {props.currentUser.user.username}
+                        </Link>
+                    </li>
+
+
+
+                </ul>
+
+            </div>
+        );
 };
 
 class Header extends React.Component {
@@ -51,8 +79,8 @@ class Header extends React.Component {
                         {this.props.appName}
                     </Link>
 
-                    <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>
-
+                {!this.props.currentUser.user._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
+                {this.props.currentUser.user._id? <LoggedInView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
 
                 </div>
             </nav>

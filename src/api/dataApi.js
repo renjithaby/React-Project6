@@ -171,6 +171,50 @@ class dataApi {
         });
 
     }
+
+    static addNewArticle(article) {
+        console.log("addNewArticle............1111");
+        console.log(article);
+
+        const request = new Request('http://localhost:3000/addarticle',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(article)
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+
+    static getUserArticles(userid) {
+        console.log("getUserArticles............1111" +userid);
+
+        const request = new Request('http://localhost:3000/getuserarticles',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({userid:userid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
 }
 
 export default dataApi;

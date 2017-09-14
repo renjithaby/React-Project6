@@ -12,8 +12,12 @@ class Feed extends Component {
         super(props);
         console.log("im.calling feed conatiner..... constructor");
         this.state = {currentFeed: "global"};
-       this.setCurrentFeed("global");
 
+    }
+
+    componentWillMount(){
+        console.log("calling the serCurrent Feeddd............................");
+        this.setCurrentFeed("global");
     }
 
     componentWillReceiveProps(nextProps){
@@ -25,7 +29,7 @@ class Feed extends Component {
     setCurrentFeed(name){
      console.log("calling the serCurrent Feeddd");
         this.setState({currentFeed: name});
-        this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":name});
+        this.props.getFeed({"_id":this.props.userData.user._id,"feed":name});
     }
 
 
@@ -39,7 +43,7 @@ class Feed extends Component {
                     <li className ="nav-item"><Tab name={"global"}  active ={this.state.currentFeed === "global"?true:false} setCurrentFeed = { this.setCurrentFeed.bind(this)}/></li>
                 </ul>
                 <div>
-                    <FeedPage  type = {this.state.currentFeed}  getFeed ={this.props.getFeed.bind(this)}/>
+                    <FeedPage  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed} />
                 </div>
 
             </div>
@@ -51,7 +55,8 @@ const mapStateToProps = state => {
     console.log(" fetching the statess.....");
     console.log(state);
     return {
-        articleData: state.articleData
+        articleData: state.articleData,
+        userData:state.userData
     }
 }
 
