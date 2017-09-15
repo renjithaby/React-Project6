@@ -75,6 +75,11 @@ class Header extends React.Component {
         this.props.showUserProfile({"_id":this.props.currentUser._id, "name":this.props.currentUser.username});
     }
 
+    componentWillReceiveProps(nextProps){
+      console.log(" componentWillReceiveProps Header");
+      console.log(nextProps);
+    }
+
     render() {
         return (
             <nav className="navbar navbar-light">

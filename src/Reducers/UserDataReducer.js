@@ -89,7 +89,9 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
     }
 
      function addFollowingSuccess(state,action){
-       return {...state, user : action.data.user};
+       console.log("addFollowingSuccess...");
+       console.log(action.data);
+       return {...state, user : action.data};
     }
 
      function addFollowingFailed(state,action){
@@ -98,7 +100,7 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
     }
 
     function removeFollowingSuccess(state,action){
-       return {...state, user : action.data.user};
+       return {...state, user : action.data};
     }
 
      function removeFollowingFailed(state,action){

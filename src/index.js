@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import SignUpPage  from './SignUpPage';
 import SignInPage  from './SignInPage';
-import {Router,Route} from 'react-router-dom';
+import {Router,Route,Switch} from 'react-router-dom';
 import history from './History';
 
 let store = createStore(AppReducer,applyMiddleware(thunk));
@@ -18,12 +18,15 @@ ReactDOM.render(
         <Provider store={store}>
         <Router  history={history} >
             <div>
-            <Route   path="/home" component={AppContainer}/>
+            <Switch>
+            <Route   path="/feed" component={AppContainer}/>
             <Route   path="/signin" component={AppContainer}/>
             <Route   path="/signup" component={AppContainer}/>
             <Route   path="/feed" component={AppContainer}/>
             <Route   path="/newpost" component={AppContainer}/>
             <Route   path="/userprofile" component={AppContainer}/>
+            <Route component={() => <AppContainer/>}/>
+            </Switch>
             </div>
         </Router>
     </Provider>

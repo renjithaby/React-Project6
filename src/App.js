@@ -31,13 +31,16 @@ class App extends Component {
   render() {
     return (
       <div>
+
           <Header currentUser = {this.props.userData.user} appName= {"Thoughts!"}  showUserProfile={this.props.showUserProfile.bind(this)}/>
+          <Switch>
           <Route path = "/signup"  component = {()=>  <SignUpPage  registerUser = {this.props.registerUser}  />} />
           <Route path = "/signin"  component = {()=>  <SignInPage  loginUser = {this.props.loginUser} />} />
           <Route path ="/feed" component ={()=><FeedContainer />}/>
           <Route path ="/newpost" component ={()=><NewPostPage currentUser = {this.props.userData.user} addNewArticle = {this.props.addNewArticle}/>}/>
           <Route path ="/userprofile" component ={()=><UserProfileContainer/> } />
-
+          <Route component={() => <FeedContainer/>}/>
+          </Switch>
       </div>
     );
   }

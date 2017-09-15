@@ -242,7 +242,7 @@ export function addFollowing(data) {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="success"){
-                dispatch(addFollowingSuccess(data));
+                dispatch(addFollowingSuccess(data.user));
             }else if(data.result ==="failed"){
                 dispatch(addFollowingFailed(data));
             }
@@ -258,7 +258,7 @@ export function removeFollowing(data) {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="success"){
-                dispatch(removeFollowingSuccess(data));
+                dispatch(removeFollowingSuccess(data.user));
             }else if(data.result ==="failed"){
                 dispatch(removeFollowingFailed(data));
             }
