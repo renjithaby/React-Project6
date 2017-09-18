@@ -1,7 +1,8 @@
 /**
  * Created by rabby on 12/09/2017.
  */
-const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArticles:[]}, action = {}) => {
+import history from '../History'
+const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArticles:[],selectedArticle:{article:{}, comments:[]}}, action = {}) => {
 
 	switch (action.type){
 
@@ -23,6 +24,20 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
         case "GET_USER_ARTICLE_FAILED":
             return getUserArticleFailed(state,action);
 
+        case "SET_SELECTED_ARTICLE":
+            return setSelectedArticle(state,action);
+
+        case "GET_COMMENTS_SUCCESS":
+            return getArticleCommentsSuccess(state,action);
+
+        case "GET_COMMENTS_FAILED":
+            return  getArticleCommentsFailed(state,action);
+
+        case "ADD_COMMENTS_SUCCESS":
+            return getArticleCommentsSuccess(state,action);
+
+        case "ADD_COMMENTS_FAILED":
+            return  AddCommentsFailed(state,action);
 		default:
 		    return state;
 		    break;
@@ -57,6 +72,31 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
         window.alert(action.data.message);
         return {...state};
     }
+
+    function setSelectedArticle(state, action){
+        history.push('/article');
+        var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
+        return {...state,...obj1};
+    }
+
+    function getArticleCommentsSuccess(state,action){
+
+        var  obj1 = {...state.selectedArticle,comments:action.data};
+        //console.log(selectedArticle);
+        return  {...state, selectedArticle:obj1};
+    }
+
+    function getArticleCommentsFailed(state,action){
+        window.alert(action.data.message);
+        return {...state};
+    }
+
+    function AddCommentsFailed(state,action){
+        window.alert(action.data.message);
+        return {...state};
+    }
+
+
 
 
 

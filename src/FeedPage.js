@@ -28,6 +28,7 @@ class FeedPage extends React.Component {
        //this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":nextProps.type});
     }
 
+
     render() {
         return (
             <div>
@@ -35,7 +36,11 @@ class FeedPage extends React.Component {
             <div className ="container">
                <ul>
                     {this.props.feed.map((item) =>
-                        <ArticleItem key ={item._id} article = {item} showUserProfile = {this.props.showUserProfile.bind(this)}/>
+                        <ArticleItem key ={item._id} article = {item} showUserProfile = {this.props.showUserProfile.bind(this)}
+                            isArticleLiked = {this.props.isArticleLiked.bind(this)}
+                            handleLikes =   {this.props.handleLikes.bind(this)}
+                            showArticle = {this.props.showArticle.bind(this)}
+                        />
                     )}
                 </ul>
             </div>

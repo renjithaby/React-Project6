@@ -14,7 +14,7 @@ class UserProfileHeader extends React.Component {
     }
     componentWillMount(props){
         console.log("component will mount...");
-        //this.props.getUserArticles(this.props.currentUser._id);//
+
     }
 
     handleFollow(){

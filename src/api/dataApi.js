@@ -257,6 +257,114 @@ class dataApi {
     }
 
 
+    static addLike(data) {
+        console.log("add like......"+ data.userid);
+        console.log(data);
+        const request = new Request('http://localhost:3000/user/addlike',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({userid:data.userid, articleid:data.articleid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+
+    static removeLike(data) {
+        const request = new Request('http://localhost:3000/user/removelike',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({userid:data.userid,articleid:data.articleid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static getUserLikes(userid) {
+        console.log("getUserLikes............1111" +userid);
+
+        const request = new Request('http://localhost:3000/user/getuserlikes',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({userid:userid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+
+    static getArticleComments(articleid) {
+
+        const request = new Request('http://localhost:3000/user/getarticlecomments',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({articleid:articleid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static addNewComment(commentData) {
+        console.log("addNewArticle............1111");
+        console.log(commentData);
+
+        const request = new Request('http://localhost:3000/user/addcomment',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(commentData)
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+
+
+
 }
 
 export default dataApi;

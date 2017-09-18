@@ -29,3 +29,23 @@ body {
 .tab-active{
     background-color: lightgray;
 }
+
+.article-username {
+    color : Blue;
+}
+.article-username span{
+    cursor:pointer
+}
+.article-username span:hover {
+    text-decoration:underline;
+}
+
+.article-title{
+    text-align :left;
+}
+.add-comment div{
+min-height:20px;
+}
+.add-comment .btn-green{
+    float:right;
+}

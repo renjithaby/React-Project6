@@ -23,11 +23,31 @@ class UserProfile extends Component {
 
     }
 
+    handleLikes(articleid){
+        if(this.isArticleLiked(articleid)){
+            this.props.removeLike({"articleid":articleid,"userid":this.props.userData.user._id});
+        }else{
+            this.props.addLike({"articleid":articleid,"userid":this.props.userData.user._id});
+        }
+    }
+
+    isArticleLiked(articleid){
+        var result = this.props.userData.likes.filter(function( obj ) {
+            return (obj.articleid === articleid);
+        });
+        return (result.length > 0);
+    }
+
     render() {
         return (
             <div>
-                <UserProfilePage loggedInUser = {this.props.userData.user} profileUser = {this.props.userData.profileUser} userArticles = {this.props.articleData.profileUserArticles} showUserProfile = {this.props.showUserProfile.bind(this)}
-                    addFollowing = {this.props.addFollowing.bind(this)} removeFollowing ={this.props.removeFollowing.bind(this)}
+                <UserProfilePage isArticleLiked ={this.isArticleLiked.bind(this)} loggedInUser = {this.props.userData.user}
+                    profileUser = {this.props.userData.profileUser} userArticles = {this.props.articleData.profileUserArticles}
+                    showUserProfile = {this.props.showUserProfile.bind(this)}
+                    addFollowing = {this.props.addFollowing.bind(this)}
+                    removeFollowing ={this.props.removeFollowing.bind(this)}
+                    handleLikes = {this.handleLikes.bind(this)}
+                    showArticle = {this.props.showArticle.bind(this)}
                />
             </div>
         );
@@ -58,6 +78,17 @@ const mapDispatchToProps = dispatch => {
         },
         removeFollowing: data => {
             dispatch(Actions.removeFollowing(data));
+        },
+        addLike: data =>{
+            dispatch(Actions.addLike(data));
+        },
+
+        removeLike: data =>{
+            dispatch(Actions.removeLike(data));
+        },
+
+        showArticle:data =>{
+            dispatch(Actions.setSelectedArticle(data));
         }
 
 

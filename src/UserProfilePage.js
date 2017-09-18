@@ -49,7 +49,12 @@ class UserProfilePage extends React.Component {
                 <div className ="container">
                     <ul>
                         {this.props.userArticles.map((item) =>
-                             <ArticleItem  key ={item._id} article = {item} showUserProfile = {this.props.showUserProfile.bind(this)} />
+                             <ArticleItem  key ={item._id} article = {item}
+                                 showUserProfile = {this.props.showUserProfile.bind(this)}
+                                 isArticleLiked = {this.props.isArticleLiked.bind(this)}
+                                 handleLikes =   {this.props.handleLikes.bind(this)}
+                                 showArticle = {this.props.showArticle.bind(this)}
+                             />
                         )}
                     </ul>
                 </div>

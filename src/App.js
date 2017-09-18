@@ -5,6 +5,7 @@ import SignUpPage  from './SignUpPage';
 import SignInPage  from './SignInPage';
 import NewPostPage  from './NewPostPage';
 import {UserProfileContainer}  from './UserProfileContainer';
+import {ArticleDetailsContainer}  from './ArticleDetailsContainer';
 import {FeedContainer}  from './FeedContainer';
 import * as Actions from  "./Actions/Action";
 import { connect } from 'react-redux';
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path ="/feed" component ={()=><FeedContainer />}/>
           <Route path ="/newpost" component ={()=><NewPostPage currentUser = {this.props.userData.user} addNewArticle = {this.props.addNewArticle}/>}/>
           <Route path ="/userprofile" component ={()=><UserProfileContainer/> } />
+          <Route path ="/article" component ={()=><ArticleDetailsContainer/> } />
           <Route component={() => <FeedContainer/>}/>
           </Switch>
       </div>

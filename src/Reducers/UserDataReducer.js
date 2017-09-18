@@ -4,7 +4,7 @@
 import history from '../History'
 
 
-const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
+const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}) => {
 
     switch (action.type){
 
@@ -41,6 +41,17 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
         case "REMOVE_FOLLOWING_FAILED" :
             return  removeFollowingFailed(state,action);
 
+        case "ADD_LIKE_SUCCESS" :
+            return addLikeSuccess(state,action);
+
+        case "ADD_LIKE_FAILED" :
+            return  addLikeFailed(state,action);
+
+        case "REMOVE_LIKE_SUCCESS" :
+            return removeLikeSuccess(state,action);
+
+        case "REMOVE_LIKE_FAILED" :
+            return  removeLikeFailed(state,action);
 
         default:
             return state;
@@ -60,13 +71,25 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
     function loginSuccess(state, action){
         //var usr = action.data;
          history.push('/feed');
-        return {...state, user : action.data.user};
+        console.log("action.data.likes");
+        console.log(action.data.likes);
+        return {...state, user : action.data.user , likes:action.data.likes };
     }
 
     function addArticleSuccess(state,action){
-        history.push('/userprofile');
+        history.push('/feed');
         return {...state};
     }
+
+    function addLikeSuccess(state,action){
+        return {...state,likes:action.data.likes};
+    }
+
+    function removeLikeSuccess(state,action){
+        return {...state,likes:action.data.likes};
+    }
+
+
 
     function registerFailed(state,action){
         window.alert(action.data.message);
@@ -83,6 +106,13 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
         return state;
     }
 
+    function addLikeFailed(state,action){
+        return {...state};
+    }
+
+    function removeLikeFailed(state,action){
+        return {...state};
+    }
     function updateProfileUser(state,action){
         history.push('/userprofile');
         return {...state , profileUser : action.data};
@@ -103,7 +133,7 @@ const UserDataReducer = (state = {user:{}, profileUser:{}}, action = {}) => {
        return {...state, user : action.data};
     }
 
-     function removeFollowingFailed(state,action){
+    function removeFollowingFailed(state,action){
         window.alert(action.data.message);
         return state;
     }

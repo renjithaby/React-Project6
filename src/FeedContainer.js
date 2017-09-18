@@ -30,6 +30,22 @@ class Feed extends Component {
      console.log("calling the serCurrent Feeddd");
         this.setState({currentFeed: name});
         this.props.getFeed({"_id":this.props.userData.user._id,"feed":name});
+
+    }
+
+    isArticleLiked(articleid){
+        var result = this.props.userData.likes.filter(function( obj ) {
+            return (obj.articleid === articleid);
+        });
+        return (result.length > 0);
+    }
+
+    handleLikes(articleid){
+        if(this.isArticleLiked(articleid)){
+            this.props.removeLike({"articleid":articleid,"userid":this.props.userData.user._id});
+        }else{
+            this.props.addLike({"articleid":articleid,"userid":this.props.userData.user._id});
+        }
     }
 
 
@@ -43,8 +59,10 @@ class Feed extends Component {
                     <li className ="nav-item"><Tab name={"global"}  active ={this.state.currentFeed === "global"?true:false} setCurrentFeed = { this.setCurrentFeed.bind(this)}/></li>
                 </ul>
                 <div>
-                    <FeedPage  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
-                    showUserProfile = {this.props.showUserProfile.bind(this)}/>
+                    <FeedPage isArticleLiked ={this.isArticleLiked.bind(this)}  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
+                    showUserProfile = {this.props.showUserProfile.bind(this)}
+                    handleLikes = {this.handleLikes.bind(this)}
+                    showArticle = {this.props.showArticle.bind(this)}/>
                 </div>
 
             </div>
@@ -80,6 +98,18 @@ const mapDispatchToProps = dispatch => {
 
         showUserProfile: user =>{
              dispatch(Actions.updateProfileUser(user));
+        },
+
+        addLike: data =>{
+            dispatch(Actions.addLike(data));
+        },
+
+        removeLike: data =>{
+            dispatch(Actions.removeLike(data));
+        },
+
+        showArticle:data =>{
+            dispatch(Actions.setSelectedArticle(data));
         }
     }
 }

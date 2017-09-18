@@ -130,20 +130,100 @@ export const removeFollowingFailed = (data) => {
     };
 }
 
+export const addLikeSuccess = (data) => {
+    return {
+        type: "ADD_LIKE_SUCCESS",
+        data: data
+    };
+}
+
+export const addLikeFailed = (data) => {
+    return {
+        type: "ADD_LIKE_FAILED",
+        data: data
+    };
+}
+export const removeLikeSuccess = (data) => {
+    return {
+        type: "REMOVE_LIKE_SUCCESS",
+        data: data
+    };
+}
+
+export const removeLikeFailed = (data) => {
+    return {
+        type: "REMOVE_LIKE_FAILED",
+        data: data
+    };
+}
+
+export const setSelectedArticle = (data) => {
+    return {
+        type: "SET_SELECTED_ARTICLE",
+        data: data
+    };
+}
+export const getArticleCommentsSuccess = (data) => {
+    return {
+        type: "GET_COMMENTS_SUCCESS",
+        data: data
+    };
+}
+
+export const getArticleCommentsFailed = (data) => {
+    return {
+        type: "GET_COMMENTS_FAILED",
+        data: data
+    };
+}
+
+export const addNewCommentSuccess = (data) => {
+    return {
+        type: "ADD_COMMENTS_SUCCESS",
+        data: data
+    };
+}
+
+export const addNewCommentFailed = (data) => {
+    return {
+        type: "ADD_COMMENTS_FAILED",
+        data: data
+    };
+}
+
+
+
+
+
+
+
 
 
 
 
 export function loginUser(usr) {
     return function(dispatch) {
-
+        var resultData = {};
         return dataApi.login(usr).then(data => {
             console.log("....response datat");
             console.log(data);
-            if(data.result ==="failed"){
+
+            if(data.result === "failed"){
                 dispatch(loginFailed(data));
+
             }else {
-                dispatch(loginSuccess(data));
+
+                resultData.user = data.user;
+                dataApi.getUserLikes(resultData.user._id).then(data => {
+                    console.log("....user idddddd");
+                    console.log(resultData.user._id);
+                    if(data.result === "failed"){
+                        dispatch(loginFailed(data));
+                    }else {
+                        resultData.likes = data.likes;
+                        dispatch(loginSuccess(resultData));
+                    }
+                })
             }
         }).catch(error => {
             throw(error);
@@ -261,6 +341,73 @@ export function removeFollowing(data) {
                 dispatch(removeFollowingSuccess(data.user));
             }else if(data.result ==="failed"){
                 dispatch(removeFollowingFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+export function addLike(data) {
+    return function(dispatch) {
+        return dataApi.addLike(data).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(addLikeSuccess(data));
+            }else if(data.result ==="failed"){
+                dispatch(addLikeFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function removeLike(data) {
+    return function(dispatch) {
+        return dataApi.removeLike(data).then(data => {
+            console.log("....response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(removeLikeSuccess(data));
+            }else if(data.result ==="failed"){
+                dispatch(removeLikeFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+export function getArticleComments(articleid) {
+    return function(dispatch) {
+        return dataApi.getArticleComments(articleid).then(data => {
+            console.log(".... GET ARTICLE COMMENTS ......response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(getArticleCommentsSuccess(data.comments));
+            }else if(data.result ==="failed"){
+                dispatch(getArticleCommentsFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+export function addNewComment(commentData) {
+    return function(dispatch) {
+        return dataApi.addNewComment(commentData).then(data => {
+            console.log(".... GET ARTICLE COMMENTS ......response datat");
+            console.log(data);
+            if(data.result ==="success"){
+                dispatch(addNewCommentSuccess(data.comments));
+            }else if(data.result ==="failed"){
+                dispatch(addNewCommentFailed(data));
             }
         }).catch(error => {
             throw(error);

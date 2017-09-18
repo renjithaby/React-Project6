@@ -25,6 +25,7 @@ ReactDOM.render(
             <Route   path="/feed" component={AppContainer}/>
             <Route   path="/newpost" component={AppContainer}/>
             <Route   path="/userprofile" component={AppContainer}/>
+            <Route   path="/article" component={AppContainer}/>
             <Route component={() => <AppContainer/>}/>
             </Switch>
             </div>
