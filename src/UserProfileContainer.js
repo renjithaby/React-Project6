@@ -48,6 +48,7 @@ class UserProfile extends Component {
                     removeFollowing ={this.props.removeFollowing.bind(this)}
                     handleLikes = {this.handleLikes.bind(this)}
                     showArticle = {this.props.showArticle.bind(this)}
+                    isUserLoggedIn = {this.props.userData.user._id?true:false}
                />
             </div>
         );

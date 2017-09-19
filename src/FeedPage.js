@@ -40,6 +40,7 @@ class FeedPage extends React.Component {
                             isArticleLiked = {this.props.isArticleLiked.bind(this)}
                             handleLikes =   {this.props.handleLikes.bind(this)}
                             showArticle = {this.props.showArticle.bind(this)}
+                            isUserLoggedIn = {this.props.isUserLoggedIn}
                         />
                     )}
                 </ul>

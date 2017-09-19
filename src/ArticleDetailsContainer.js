@@ -39,7 +39,7 @@ class ArticleDetails extends Component {
         return (
             <div>
             <ArticleDetailHeader article = {this.props.selectedArticle.article}/>
-            <NewCommentItem   addNewComment = {this.addNewComment.bind(this)} />
+            {this.props.userData._id ? <NewCommentItem  addNewComment = {this.addNewComment.bind(this)} />:null}
 
                 <ul className = "container">
 

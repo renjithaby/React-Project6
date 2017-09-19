@@ -62,7 +62,9 @@ class Feed extends Component {
                     <FeedPage isArticleLiked ={this.isArticleLiked.bind(this)}  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
                     showUserProfile = {this.props.showUserProfile.bind(this)}
                     handleLikes = {this.handleLikes.bind(this)}
-                    showArticle = {this.props.showArticle.bind(this)}/>
+                    showArticle = {this.props.showArticle.bind(this)}
+                    isUserLoggedIn = {this.props.userData.user._id?true:false}
+                    />
                 </div>
 
             </div>
