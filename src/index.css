@@ -49,3 +49,8 @@ min-height:20px;
 .add-comment .btn-green{
     float:right;
 }
+
+.bin-icon{
+    float:right;
+    cursor:pointer
+}

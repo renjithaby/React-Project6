@@ -4,7 +4,7 @@
 import history from '../History'
 
 
-const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}) => {
+const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
 
     switch (action.type){
 
@@ -25,9 +25,6 @@ const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}
 
         case "ADD_ARTICLE_FAILED" :
             return addArticleFailed(state,action);
-
-        case "UPDATE_PROFILE_USER" :
-            return updateProfileUser(state,action);
 
         case "ADD_FOLLOWING_SUCCESS" :
             return addFollowingSuccess(state,action);
@@ -52,6 +49,15 @@ const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}
 
         case "REMOVE_LIKE_FAILED" :
             return  removeLikeFailed(state,action);
+
+        case "LOAD_USER_TOKEN_SUCCESS" :
+            return loadUserFromTokenSuccess(state,action);
+
+        case "LOAD_USER_TOKEN_FAILED" :
+            return  loadUserFromTokenFailed(state,action);
+
+        case "HANDLE_LOGOUT_SUCCESS" :
+            return handleLogoutSuccess(state,action);
 
         default:
             return state;
@@ -113,11 +119,7 @@ const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}
     function removeLikeFailed(state,action){
         return {...state};
     }
-    function updateProfileUser(state,action){
-        history.push('/userprofile');
-        return {...state , profileUser : action.data};
-    }
-
+ 
      function addFollowingSuccess(state,action){
        console.log("addFollowingSuccess...");
        console.log(action.data);
@@ -136,6 +138,20 @@ const UserDataReducer = (state = {user:{},likes:[], profileUser:{}}, action = {}
     function removeFollowingFailed(state,action){
         window.alert(action.data.message);
         return state;
+    }
+
+    function loadUserFromTokenFailed(state,action){
+        window.alert(action.data.message);
+        return state;
+    }
+
+    function loadUserFromTokenSuccess(state, action){
+        return {...state, user : action.data.user , likes:action.data.likes };
+    }
+
+    function handleLogoutSuccess(state,action){
+        history.push('/feed');
+        return {...state, user :{} , likes:{} };
     }
 
 }

@@ -60,9 +60,7 @@ class Feed extends Component {
                 </ul>
                 <div>
                     <FeedPage isArticleLiked ={this.isArticleLiked.bind(this)}  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
-                    showUserProfile = {this.props.showUserProfile.bind(this)}
                     handleLikes = {this.handleLikes.bind(this)}
-                    showArticle = {this.props.showArticle.bind(this)}
                     isUserLoggedIn = {this.props.userData.user._id?true:false}
                     />
                 </div>
@@ -98,20 +96,12 @@ const mapDispatchToProps = dispatch => {
             }
         },
 
-        showUserProfile: user =>{
-             dispatch(Actions.updateProfileUser(user));
-        },
-
         addLike: data =>{
             dispatch(Actions.addLike(data));
         },
 
         removeLike: data =>{
             dispatch(Actions.removeLike(data));
-        },
-
-        showArticle:data =>{
-            dispatch(Actions.setSelectedArticle(data));
         }
     }
 }

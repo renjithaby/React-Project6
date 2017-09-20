@@ -5,7 +5,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from './logo.svg';
-
+import history from './History';
 const LoggedOutView = props => {
         return (
             <div>
@@ -19,16 +19,17 @@ const LoggedOutView = props => {
                 </li>
 
                 <li className="nav-item">
-                    <Link to="signin" className="nav-link">
+                    <Link to="/signin" className="nav-link">
                         Sign in
                     </Link>
                 </li>
 
                 <li className="nav-item">
-                    <Link to="signup" className="nav-link">
+                    <Link to="/signup" className="nav-link">
                         Sign up
                     </Link>
                 </li>
+
 
             </ul>
 
@@ -50,7 +51,7 @@ const LoggedInView = props => {
                     </li>
 
                     <li className="nav-item">
-                        <Link to="newpost" className="nav-link">
+                        <Link to="/newpost" className="nav-link">
                             New Post
                         </Link>
                     </li>
@@ -61,6 +62,11 @@ const LoggedInView = props => {
                         </Link>
                     </li>
 
+                    <li className="nav-item">
+                        <button onClick = {props.handleLogout.bind(this)}className="nav-link">
+                            logout
+                        </button>
+                    </li>
 
 
                 </ul>
@@ -72,7 +78,13 @@ const LoggedInView = props => {
 class Header extends React.Component {
 
     showUserProfile(){
-        this.props.showUserProfile({"_id":this.props.currentUser._id, "name":this.props.currentUser.username});
+        history.push('/userprofile/'+this.props.currentUser._id);
+    }
+
+    handleLogout(){
+        sessionStorage.setItem('jwt', null);
+        this.props.handleLogout();
+        //history.push('/feed/');
     }
 
     componentWillReceiveProps(nextProps){
@@ -90,7 +102,10 @@ class Header extends React.Component {
                     </Link>
 
                 {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
-                {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)} currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
+                {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)}
+                    currentUser={this.props.currentUser}
+                    handleLogout ={this.handleLogout.bind(this)}
+                    appName ={this.props.appName}/>:null}
 
                 </div>
             </nav>

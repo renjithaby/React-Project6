@@ -13,13 +13,14 @@ class UserProfile extends Component {
     constructor(props){
         super(props);
 
-        this.state = {};
+        //this.state = {};
 
     }
 
-    componentWillMount(props){
+    componentDidMount(props){
         console.log("UserProfile  ..........component will mount...");
-        this.props.getUserArticles(this.props.userData.profileUser._id);
+        this.props.getUserById(this.props.match.params.id);
+        this.props.getUserArticles(this.props.match.params.id);
 
     }
 
@@ -41,13 +42,11 @@ class UserProfile extends Component {
     render() {
         return (
             <div>
-                <UserProfilePage isArticleLiked ={this.isArticleLiked.bind(this)} loggedInUser = {this.props.userData.user}
-                    profileUser = {this.props.userData.profileUser} userArticles = {this.props.articleData.profileUserArticles}
-                    showUserProfile = {this.props.showUserProfile.bind(this)}
+               <UserProfilePage isArticleLiked ={this.isArticleLiked.bind(this)} loggedInUser = {this.props.userData.user}
+                    profileUser = {this.props.articleData.selectedProfile.user} userArticles = {this.props.articleData.selectedProfile.articles}
                     addFollowing = {this.props.addFollowing.bind(this)}
                     removeFollowing ={this.props.removeFollowing.bind(this)}
                     handleLikes = {this.handleLikes.bind(this)}
-                    showArticle = {this.props.showArticle.bind(this)}
                     isUserLoggedIn = {this.props.userData.user._id?true:false}
                />
             </div>
@@ -71,9 +70,6 @@ const mapDispatchToProps = dispatch => {
        getUserArticles:userid => {
             dispatch(Actions.getUserArticles(userid));
         },
-        showUserProfile: user =>{
-             dispatch(Actions.updateProfileUser(user));
-        },
         addFollowing: data => {
             dispatch(Actions.addFollowing(data));
         },
@@ -83,13 +79,11 @@ const mapDispatchToProps = dispatch => {
         addLike: data =>{
             dispatch(Actions.addLike(data));
         },
-
+        getUserById:userid =>{
+            dispatch(Actions.getUserById(userid));
+        },
         removeLike: data =>{
             dispatch(Actions.removeLike(data));
-        },
-
-        showArticle:data =>{
-            dispatch(Actions.setSelectedArticle(data));
         }
 
 

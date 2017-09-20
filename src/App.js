@@ -9,12 +9,16 @@ import {ArticleDetailsContainer}  from './ArticleDetailsContainer';
 import {FeedContainer}  from './FeedContainer';
 import * as Actions from  "./Actions/Action";
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route ,Switch, Link, hashHistory,browserHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route ,Switch,Redirect, Link, hashHistory,browserHistory } from 'react-router-dom';
+import {jwt} from 'jsonwebtoken';
+import history from './History'
 class App extends Component {
 
     componentWillMount(props){
         console.log("appppppp  ..........component will mount...");
-        //this.props.getUserArticles(this.props.currentUser._id);//
+        if(sessionStorage.jwt) {
+            this.props.loadUserFromToken(sessionStorage.jwt);
+        }
     }
 
     componentWillReceiveProps(nextProps){
@@ -29,18 +33,27 @@ class App extends Component {
         //this.props.history.push('/feed');
       }
     }
+
+    requireAuth(){
+        /*  <Route path ="/feed" render={()=>this.requireAuth()? <FeedContainer/>:<Redirect to="/signin"/>} /> */
+        console.log(jwt);
+        //var decoded = jwt.verify(sessionStorage.jwt , "godslove");
+        console.log("decoded........................................");
+        //console.log(decoded);
+        return(sessionStorage.jwt ? true:false);
+    }
   render() {
     return (
       <div>
 
-          <Header currentUser = {this.props.userData.user} appName= {"Thoughts!"}  showUserProfile={this.props.showUserProfile.bind(this)}/>
+          <Header currentUser = {this.props.userData.user} appName= {"Thoughts!"} handleLogout = {this.props.handleLogout.bind(this)} />
           <Switch>
           <Route path = "/signup"  component = {()=>  <SignUpPage  registerUser = {this.props.registerUser}  />} />
           <Route path = "/signin"  component = {()=>  <SignInPage  loginUser = {this.props.loginUser} />} />
-          <Route path ="/feed" component ={()=><FeedContainer />}/>
+          <Route path ="/feed" component ={()=> <FeedContainer/>} />
           <Route path ="/newpost" component ={()=><NewPostPage currentUser = {this.props.userData.user} addNewArticle = {this.props.addNewArticle}/>}/>
-          <Route path ="/userprofile" component ={()=><UserProfileContainer/> } />
-          <Route path ="/article" component ={()=><ArticleDetailsContainer/> } />
+          <Route path ="/userprofile/:id" component ={()=><UserProfileContainer {...this.props}/> } />
+          <Route path ="/article/:id" component ={()=><ArticleDetailsContainer {...this.props}/> } />
           <Route component={() => <FeedContainer/>}/>
           </Switch>
       </div>
@@ -52,7 +65,8 @@ const mapStateToProps = state => {
     console.log(" fetching the statess.....");
     console.log(state);
     return {
-        userData: state.userData
+        userData: state.userData,
+        
     }
 }
 
@@ -68,11 +82,12 @@ const mapDispatchToProps = dispatch => {
         addNewArticle:article => {
             dispatch(Actions.addNewArticle(article));
         },
-        getUserArticles:userid => {
-            dispatch(Actions.getUserArticles(userid));
+        loadUserFromToken : token =>{
+            dispatch(Actions.loadUserFromToken(token));
         },
-        showUserProfile: user =>{
-             dispatch(Actions.updateProfileUser(user));
+
+        handleLogout :()=>{
+            dispatch(Actions.handleLogout());
         }
 
 

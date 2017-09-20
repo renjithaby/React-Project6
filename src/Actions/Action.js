@@ -3,6 +3,7 @@
  */
 
 import dataApi from '../api/dataApi'
+import history from '../History'
 
 export var usersList = [];
 
@@ -90,13 +91,22 @@ export const getUserArticlesFailed = (data) => {
     };
 }
 
-export const updateProfileUser = (data) => {
+export const getUserByIdSuccess = (data) => {
     return {
         type: "UPDATE_PROFILE_USER",
         data: data
 
     };
 }
+
+export const getUserByIdFailed = (data) => {
+    return {
+        type: "UPDATE_PROFILE_USER_FAILED",
+        data: data
+
+    };
+}
+
 
 export const addFollowingSuccess = (data) => {
     return {
@@ -157,12 +167,19 @@ export const removeLikeFailed = (data) => {
     };
 }
 
-export const setSelectedArticle = (data) => {
+export const getArticleByIdSuccess= (data) => {
     return {
         type: "SET_SELECTED_ARTICLE",
         data: data
     };
 }
+export const getArticleByIdFailed= (data) => {
+    return {
+        type: "SET_SELECTED_ARTICLE_FAILED",
+        data: data
+    };
+}
+
 export const getArticleCommentsSuccess = (data) => {
     return {
         type: "GET_COMMENTS_SUCCESS",
@@ -191,6 +208,42 @@ export const addNewCommentFailed = (data) => {
     };
 }
 
+export const removeCommentSuccess = (data) => {
+    return {
+        type: "REMOVE_COMMENT_SUCCESS",
+        data: data
+    };
+}
+
+export const removeCommentFailed = (data) => {
+    return {
+        type: "REMOVE_COMMENT_FAILED",
+        data: data
+    };
+}
+
+export const loadUserFromTokenFailed = (data) => {
+    return {
+        type: "LOAD_USER_TOKEN_FAILED",
+        data: data
+    };
+}
+
+export const loadUserFromTokenSuccess = (data) => {
+    return {
+        type: "LOAD_USER_TOKEN_SUCCESS",
+        data: data
+    };
+}
+
+export const handleLogout = (data) => {
+    return {
+        type: "HANDLE_LOGOUT_SUCCESS",
+        data: data
+    };
+}
+
+
 
 
 
@@ -212,14 +265,17 @@ export function loginUser(usr) {
                 dispatch(loginFailed(data));
 
             }else {
-
+                resultData.token = data.token;
+                sessionStorage.setItem('jwt', resultData.token);
                 resultData.user = data.user;
                 dataApi.getUserLikes(resultData.user._id).then(data => {
                     console.log("....user idddddd");
-                    console.log(resultData.user._id);
+                    console.log();
+
                     if(data.result === "failed"){
                         dispatch(loginFailed(data));
                     }else {
+
                         resultData.likes = data.likes;
                         dispatch(loginSuccess(resultData));
                     }
@@ -414,6 +470,75 @@ export function addNewComment(commentData) {
         });
     };
 }
+
+export function removeComment(data) {
+    return function(dispatch) {
+        return dataApi.removeComment(data).then(data => {
+            if(data.result ==="success"){
+                dispatch(removeCommentSuccess(data.comments));
+            }else if(data.result ==="failed"){
+                dispatch(removeCommentFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+
+export function getArticleById(articleid) {
+    return function(dispatch) {
+        return dataApi.getArticleById(articleid).then(data => {
+            if(data.result ==="success"){
+                dispatch(getArticleByIdSuccess(data.article));
+            }else if(data.result ==="failed"){
+                dispatch(getArticleByIdFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function getUserById(userid) {
+    return function(dispatch) {
+        return dataApi.getUserById(userid).then(data => {
+            if(data.result ==="success"){
+                dispatch(getUserByIdSuccess(data.user));
+            }else if(data.result ==="failed"){
+                dispatch(getUserByIdFailed(data));
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function loadUserFromToken(token) {
+    return function(dispatch) {
+        var resultData = {};
+        return dataApi.loadUserFromToken(token).then(data => {
+             if(data.result === "failed"){
+                dispatch(loadUserFromTokenFailed(data));
+            }else {
+                 resultData.user = data.user;
+                dataApi.getUserLikes(resultData.user._id).then(data => {
+
+                    if(data.result === "failed"){
+                        dispatch(loadUserFromTokenFailed(data));
+                    }else {
+                        resultData.likes = data.likes;
+                        //dispatch(loginSuccess(resultData));
+                        dispatch(loadUserFromTokenSuccess(resultData));
+                    }
+                })
+            }
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
 
 
 

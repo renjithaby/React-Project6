@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-
+import history from './History';
 class ArticleItem extends React.Component {
 
     constructor(props){
@@ -19,7 +19,8 @@ class ArticleItem extends React.Component {
     }
 
     showUserProfile(){
-        this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
+        //this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
+        history.push('/userprofile/'+this.props.article.author.authorId);
     }
 
     handleLike() {
@@ -31,7 +32,7 @@ class ArticleItem extends React.Component {
     }
 
     showArticle(){
-        return this.props.showArticle(this.props.article);
+        history.push('/article/'+this.props.article._id);
     }
 
 

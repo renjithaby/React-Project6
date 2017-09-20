@@ -14,20 +14,20 @@ class UserProfilePage extends React.Component {
     }
     componentWillMount(props){
         console.log("component will mount  UserProfilePage.......");
-        var loggedInUser  = true,follow = true,showFollow = false;
-        if(this.props.loggedInUser.following){
-            showFollow = true;
-        }
-       if(this.props.loggedInUser._id !== this.props.profileUser._id ){
-           if(showFollow && this.props.loggedInUser.following.length>0)
+       var follow = true,showFollow = true;
+
+       if(this.props.loggedInUser._id && this.props.loggedInUser._id !== this.props.profileUser._id ){
+           if(this.props.loggedInUser.following && this.props.loggedInUser.following.length>0)
            {
                if(this.props.loggedInUser.following.find(author => author.authorId === this.props.profileUser._id)){
                     follow  = false;
                }
            }
-            loggedInUser = false;
+       }else{
+           follow = false;
+           showFollow = false;
        }
-       this.setState({follow:follow,loggedInUser :loggedInUser,showFollow:showFollow});
+       this.setState({follow:follow,showFollow:showFollow});
         //this.props.getUserArticles(this.props.currentUser._id);//
     }
 
@@ -50,10 +50,8 @@ class UserProfilePage extends React.Component {
                     <ul>
                         {this.props.userArticles.map((item) =>
                              <ArticleItem  key ={item._id} article = {item}
-                                 showUserProfile = {this.props.showUserProfile.bind(this)}
                                  isArticleLiked = {this.props.isArticleLiked.bind(this)}
                                  handleLikes =   {this.props.handleLikes.bind(this)}
-                                 showArticle = {this.props.showArticle.bind(this)}
                                  isUserLoggedIn = {this.props.isUserLoggedIn}
                              />
                         )}

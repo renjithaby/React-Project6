@@ -6,10 +6,12 @@ class dataApi {
 
     }
 
+
+
     static login(usr) {
         let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
 
-        const request = new Request('http://localhost:3000/user/authenticate',{
+        const request = new Request('http://localhost:3000/authenticate',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ class dataApi {
     static register(usr) {
        // let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
 
-        const request = new Request('http://localhost:3000/user/adduser',{
+        const request = new Request('http://localhost:3000/adduser',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -86,11 +88,12 @@ class dataApi {
 
      static getYourFeed(usr) {
        // let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
-
-        const request = new Request('http://localhost:3000/getyourfeed',{
+        const request = new Request('http://localhost:3000/user/getyourfeed',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
+
             }),
             body: JSON.stringify({userid: usr._id})
         });
@@ -105,81 +108,15 @@ class dataApi {
     }
 
 
-
-
-    static addAddress(usr) {
-        let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
-
-        const request = new Request('http://localhost:3000/addaddress',{
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({loginid :usr.loginId, name: usr.name, currentaddress : usr.currentAddress})
-        });
-
-        return fetch(request).then(response => {
-
-            //console.log(response);
-            return response.json();
-        }).catch(error => {
-            return error;
-        });
-
-    }
-
-    static updateAddress(usr) {
-        console.log("update addresss............1111");
-        console.log(usr);
-
-        const request = new Request('http://localhost:3000/updateaddress',{
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({loginid :usr.loginId,addressid: usr.id, name: usr.name, currentaddress : usr.currentAddress})
-        });
-
-        return fetch(request).then(response => {
-
-            //console.log(response);
-            return response.json();
-        }).catch(error => {
-            return error;
-        });
-
-    }
-
-    static deleteAddress(usr) {
-        console.log("delete addresss............1111");
-        console.log(usr);
-
-        const request = new Request('http://localhost:3000/removeaddress',{
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({loginid :usr.loginId,addressid: usr.addressId})
-        });
-
-        return fetch(request).then(response => {
-
-            //console.log(response);
-            return response.json();
-        }).catch(error => {
-            return error;
-        });
-
-    }
-
     static addNewArticle(article) {
         console.log("addNewArticle............1111");
         console.log(article);
 
-        const request = new Request('http://localhost:3000/addarticle',{
+        const request = new Request('http://localhost:3000/user/addarticle',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify(article)
         });
@@ -221,7 +158,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/addfollowing',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify(data)
         });
@@ -241,7 +179,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/removefollowing',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify(data)
         });
@@ -263,7 +202,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/addlike',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify({userid:data.userid, articleid:data.articleid})
         });
@@ -283,7 +223,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/removelike',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify({userid:data.userid,articleid:data.articleid})
         });
@@ -304,7 +245,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/getuserlikes',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify({userid:userid})
         });
@@ -322,7 +264,7 @@ class dataApi {
 
     static getArticleComments(articleid) {
 
-        const request = new Request('http://localhost:3000/user/getarticlecomments',{
+        const request = new Request('http://localhost:3000/getarticlecomments',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -347,7 +289,8 @@ class dataApi {
         const request = new Request('http://localhost:3000/user/addcomment',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
             }),
             body: JSON.stringify(commentData)
         });
@@ -362,7 +305,87 @@ class dataApi {
 
     }
 
+    static removeComment(data) {
 
+        const request = new Request('http://localhost:3000/user/removecomment',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
+            }),
+            body: JSON.stringify(data)
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static getArticleById(articleid) {
+
+        const request = new Request('http://localhost:3000/getarticlebyid',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({articleid:articleid})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static loadUserFromToken(token) {
+
+        const request = new Request('http://localhost:3000/user/loadUserFromToken',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'x-access-token': sessionStorage.jwt
+            }),
+            body: JSON.stringify({token:token})
+        });
+
+        return fetch(request).then(response => {
+
+            console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
+
+    static getUserById(userId) {
+
+        const request = new Request('http://localhost:3000/getuserbyid',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({userid:userId})
+        });
+
+        return fetch(request).then(response => {
+
+            //console.log(response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+
+    }
 
 
 }

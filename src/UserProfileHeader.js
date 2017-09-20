@@ -33,10 +33,10 @@ class UserProfileHeader extends React.Component {
     render() {
         return (
             <div className="jumbotron text-center">
-                    <h4>{this.props.profileUser.name}</h4>
+                    <h4>{this.props.profileUser.username}</h4>
                     <h4>{this.props.profileUser._id}</h4>
                     {this.props.profileState.showFollow ? <div>
-                    { !this.props.profileState.loggedInUser ? <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow" :"+unfollow"+this.props.profileUser.name}  </button>:null}
+                    <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow" :"+unfollow"+this.props.profileUser.name}  </button>
                     </div>:null}
              </div>
 

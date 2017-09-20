@@ -2,7 +2,7 @@
  * Created by rabby on 12/09/2017.
  */
 import history from '../History'
-const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArticles:[],selectedArticle:{article:{}, comments:[]}}, action = {}) => {
+const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[],selectedProfile:{user:{},articles:[]},selectedArticle:{article:{}, comments:[]}}, action = {}) => {
 
 	switch (action.type){
 
@@ -26,7 +26,10 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
 
         case "SET_SELECTED_ARTICLE":
             return setSelectedArticle(state,action);
-
+            
+        case "SET_SELECTED_ARTICLE_FAILED":
+            return setSelectedArticleFailed(state,action);
+            
         case "GET_COMMENTS_SUCCESS":
             return getArticleCommentsSuccess(state,action);
 
@@ -38,6 +41,16 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
 
         case "ADD_COMMENTS_FAILED":
             return  AddCommentsFailed(state,action);
+
+        case "REMOVE_COMMENT_SUCCESS" :
+            return getArticleCommentsSuccess(state,action);
+
+        case "REMOVE_COMMENT_FAILED" :
+            return  removeCommentFailed(state,action);
+            
+         case "UPDATE_PROFILE_USER" :
+            return setSelectedProfile(state,action);
+
 		default:
 		    return state;
 		    break;
@@ -64,19 +77,19 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
 		return {...state};
 	}
 
-    function getUserArticleSuccess(state,action){
-        return  {...state, profileUserArticles:action.data};
-    }
 
     function getUserArticleFailed(state,action){
         window.alert(action.data.message);
         return {...state};
     }
+    
+   function setSelectedArticle(state, action){
 
-    function setSelectedArticle(state, action){
-        history.push('/article');
-        var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
-        return {...state,...obj1};
+        //var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
+        //return {...state,...obj1};
+        var  obj1 = {...state.selectedArticle,article:action.data};
+        return{...state,selectedArticle:obj1};
+       // history.push('/article/'+action.data._id);
     }
 
     function getArticleCommentsSuccess(state,action){
@@ -84,6 +97,22 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
         var  obj1 = {...state.selectedArticle,comments:action.data};
         //console.log(selectedArticle);
         return  {...state, selectedArticle:obj1};
+    }
+
+    function setSelectedProfile(state, action){
+
+        //var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
+        //return {...state,...obj1};
+        var  obj1 = {...state.selectedProfile,user:action.data};
+        return{...state,selectedProfile:obj1};
+       // history.push('/article/'+action.data._id);
+    }
+
+    function getUserArticleSuccess(state,action){
+
+        var  obj1 = {...state.selectedProfile, articles:action.data};
+        //console.log(selectedArticle);
+        return  {...state, selectedProfile:obj1};
     }
 
     function getArticleCommentsFailed(state,action){
@@ -96,8 +125,18 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[], profileUserArtic
         return {...state};
     }
 
+    function removeCommentFailed(state,action){
+        window.alert(action.data.message);
+        return {...state};
+    }
 
+    function setSelectedArticleFailed(state,action){
+        window.alert(action.data.message);
+        return {...state};
+    }
 
+    
+    
 
 
 }

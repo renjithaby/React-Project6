@@ -36,10 +36,9 @@ class FeedPage extends React.Component {
             <div className ="container">
                <ul>
                     {this.props.feed.map((item) =>
-                        <ArticleItem key ={item._id} article = {item} showUserProfile = {this.props.showUserProfile.bind(this)}
+                        <ArticleItem key ={item._id} article = {item}
                             isArticleLiked = {this.props.isArticleLiked.bind(this)}
                             handleLikes =   {this.props.handleLikes.bind(this)}
-                            showArticle = {this.props.showArticle.bind(this)}
                             isUserLoggedIn = {this.props.isUserLoggedIn}
                         />
                     )}

@@ -14,6 +14,10 @@ import history from './History';
 
 let store = createStore(AppReducer,applyMiddleware(thunk));
 const app = document.getElementById("root");
+
+
+
+
 ReactDOM.render(
         <Provider store={store}>
         <Router  history={history} >
@@ -24,8 +28,8 @@ ReactDOM.render(
             <Route   path="/signup" component={AppContainer}/>
             <Route   path="/feed" component={AppContainer}/>
             <Route   path="/newpost" component={AppContainer}/>
-            <Route   path="/userprofile" component={AppContainer}/>
-            <Route   path="/article" component={AppContainer}/>
+            <Route   path="/userprofile/:id" component={AppContainer}/>
+            <Route   path="/article/:id" component={AppContainer}/>
             <Route component={() => <AppContainer/>}/>
             </Switch>
             </div>
@@ -35,3 +39,4 @@ ReactDOM.render(
     , app);
 
 registerServiceWorker();
+

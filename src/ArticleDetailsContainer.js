@@ -15,17 +15,30 @@ class ArticleDetails extends Component {
     constructor(props){
         super(props);
 
+
     }
 
-    componentWillMount(props){
+    /*componentWillMount(props){
         console.log("Article Details  ..........component will mount...");
 
+        var id = "59bf7fedc624ef2c5d93f556";
+            this.props.getArticleById(this.props.match.params.id);
+            this.props.getArticleComments(this.props.match.params.id);
 
 
-        this.props.getArticleComments(this.props.selectedArticle.article._id);
+
+    } */
+
+    componentDidMount(props){
+        console.log("Article Details  ..........component will mount...");
+
+        //var id = "59bf7fedc624ef2c5d93f556";
+        this.props.getArticleById(this.props.match.params.id);
+        this.props.getArticleComments(this.props.match.params.id);
+
+
 
     }
-
     componentWillReceiveProps(nextProps){
 
     }
@@ -35,19 +48,26 @@ class ArticleDetails extends Component {
 
     }
 
+    removeComment(commentid){
+        this.props.removeComment({articleid:this.props.selectedArticle.article._id, commentid:commentid});
+    }
+
     render() {
         return (
             <div>
-            <ArticleDetailHeader article = {this.props.selectedArticle.article}/>
-            {this.props.userData._id ? <NewCommentItem  addNewComment = {this.addNewComment.bind(this)} />:null}
+                {this.props.selectedArticle.article._id?<ArticleDetailHeader article = {this.props.selectedArticle.article}/>:null}
+                 {this.props.userData._id ? <NewCommentItem  addNewComment = {this.addNewComment.bind(this)} />:null}
 
-                <ul className = "container">
+                 <ul className = "container">
 
-                    {this.props.selectedArticle.comments.map((item) =>
-                            <CommentItem key ={item._id} comment = {item}  />
+                 {this.props.selectedArticle.comments.map((item) =>
+                 <CommentItem key ={item._id} comment = {item}
+                 loggedInUser = {this.props.userData }
+                 removeComment = {this.removeComment.bind(this)}
+                 />
 
-                    )}
-                </ul>
+                 )}
+                 </ul>
             </div>
         );
     }
@@ -75,8 +95,13 @@ const mapDispatchToProps = dispatch => {
         },
         addNewComment:commentData => {
             dispatch(Actions.addNewComment(commentData));
+        },
+        removeComment:data => {
+            dispatch(Actions.removeComment(data));
+        },
+        getArticleById:articleid =>{
+            dispatch(Actions.getArticleById(articleid));
         }
-
     }
 }
 
