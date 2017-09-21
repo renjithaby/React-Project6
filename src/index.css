@@ -54,3 +54,8 @@ min-height:20px;
     float:right;
     cursor:pointer
 }
+
+.nav .active a{
+    background-color: #eee;
+    color:#23527c;
+}

@@ -237,6 +237,7 @@ export const loadUserFromTokenSuccess = (data) => {
 }
 
 export const handleLogout = (data) => {
+    sessionStorage.clear();
     return {
         type: "HANDLE_LOGOUT_SUCCESS",
         data: data
@@ -518,15 +519,16 @@ export function loadUserFromToken(token) {
         var resultData = {};
         return dataApi.loadUserFromToken(token).then(data => {
              if(data.result === "failed"){
-                 handleLogout();
-                dispatch(loadUserFromTokenFailed(data));
+                // if(data.message ===    "TOKEN_EXPIRED")
+                 dispatch(handleLogout());
+               //dispatch(loadUserFromTokenFailed(data));
             }else {
                  resultData.user = data.user;
                 dataApi.getUserLikes(resultData.user._id).then(data => {
 
                     if(data.result === "failed"){
-                        handleLogout();
-                        dispatch(loadUserFromTokenFailed(data));
+                        dispatch(handleLogout());;
+                       // dispatch(loadUserFromTokenFailed(data));
                     }else {
                         resultData.userLikes = data.userLikes;
                         //dispatch(loginSuccess(resultData));

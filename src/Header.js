@@ -12,19 +12,19 @@ const LoggedOutView = props => {
 
             <ul className="nav navbar-nav pull-xs-right">
 
-                <li className="nav-item">
+                <li className=  {props.location.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
                     <Link to="/feed" className="nav-link">
                         Home
                     </Link>
                 </li>
 
-                <li className="nav-item">
+                <li className={props.location.pathname ==="/signin"?"nav-item active":"nav-item inactive"}>
                     <Link to="/signin" className="nav-link">
                         Sign in
                     </Link>
                 </li>
 
-                <li className="nav-item">
+                <li className={props.location.pathname ==="/signup"?"nav-item active":"nav-item inactive"}>
                     <Link to="/signup" className="nav-link">
                         Sign up
                     </Link>
@@ -44,13 +44,13 @@ const LoggedInView = props => {
 
                 <ul className="nav navbar-nav pull-xs-right">
 
-                    <li className="nav-item">
+                    <li className={props.location.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
                         <Link to="/feed" className="nav-link">
                             Home
                         </Link>
                     </li>
 
-                    <li className="nav-item">
+                    <li className={props.location.pathname ==="/newpost"?"nav-item active":"nav-item inactive"}>
                         <Link to="/newpost" className="nav-link">
                             New Post
                         </Link>
@@ -62,10 +62,10 @@ const LoggedInView = props => {
                         </Link>
                     </li>
 
-                    <li className="nav-item">
-                        <button onClick = {props.handleLogout.bind(this)}className="nav-link">
+                    <li onClick = {props.handleLogout.bind(this)} className="nav-item">
+                        <Link to=""  className="nav-link">
                             logout
-                        </button>
+                        </Link>
                     </li>
 
 
@@ -82,14 +82,21 @@ class Header extends React.Component {
     }
 
     handleLogout(){
-        sessionStorage.setItem('jwt', null);
+
         this.props.handleLogout();
         //history.push('/feed/');
+    }
+
+    componentWillMount(props){
+        console.log(" componentWillReceiveProps Header");
+        console.log(this.props.location.pathname);
+
     }
 
     componentWillReceiveProps(nextProps){
       console.log(" componentWillReceiveProps Header");
       console.log(nextProps);
+
     }
 
     render() {
@@ -101,8 +108,8 @@ class Header extends React.Component {
                         {this.props.appName}
                     </Link>
 
-                {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName}/>:null}
-                {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)}
+                {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName} location={this.props.location}/>:null}
+                {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)}  location={this.props.location}
                     currentUser={this.props.currentUser}
                     handleLogout ={this.handleLogout.bind(this)}
                     appName ={this.props.appName}/>:null}
