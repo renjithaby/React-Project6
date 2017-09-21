@@ -253,7 +253,6 @@ export const handleLogout = (data) => {
 
 
 
-
 export function loginUser(usr) {
     return function(dispatch) {
         var resultData = {};
@@ -276,7 +275,7 @@ export function loginUser(usr) {
                         dispatch(loginFailed(data));
                     }else {
 
-                        resultData.likes = data.likes;
+                        resultData.userLikes = data.userLikes;
                         dispatch(loginSuccess(resultData));
                     }
                 })
@@ -411,7 +410,7 @@ export function addLike(data) {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="success"){
-                dispatch(addLikeSuccess(data));
+                dispatch(addLikeSuccess(data.resultData));
             }else if(data.result ==="failed"){
                 dispatch(addLikeFailed(data));
             }
@@ -427,7 +426,7 @@ export function removeLike(data) {
             console.log("....response datat");
             console.log(data);
             if(data.result ==="success"){
-                dispatch(removeLikeSuccess(data));
+                dispatch(removeLikeSuccess(data.resultData));
             }else if(data.result ==="failed"){
                 dispatch(removeLikeFailed(data));
             }
@@ -519,15 +518,17 @@ export function loadUserFromToken(token) {
         var resultData = {};
         return dataApi.loadUserFromToken(token).then(data => {
              if(data.result === "failed"){
+                 handleLogout();
                 dispatch(loadUserFromTokenFailed(data));
             }else {
                  resultData.user = data.user;
                 dataApi.getUserLikes(resultData.user._id).then(data => {
 
                     if(data.result === "failed"){
+                        handleLogout();
                         dispatch(loadUserFromTokenFailed(data));
                     }else {
-                        resultData.likes = data.likes;
+                        resultData.userLikes = data.userLikes;
                         //dispatch(loginSuccess(resultData));
                         dispatch(loadUserFromTokenSuccess(resultData));
                     }
@@ -538,6 +539,10 @@ export function loadUserFromToken(token) {
         });
     };
 }
+
+
+
+
 
 
 

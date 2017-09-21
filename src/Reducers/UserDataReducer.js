@@ -77,9 +77,7 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
     function loginSuccess(state, action){
         //var usr = action.data;
          history.push('/feed');
-        console.log("action.data.likes");
-        console.log(action.data.likes);
-        return {...state, user : action.data.user , likes:action.data.likes };
+        return {...state, user : action.data.user , likes:action.data.userLikes };
     }
 
     function addArticleSuccess(state,action){
@@ -88,11 +86,12 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
     }
 
     function addLikeSuccess(state,action){
-        return {...state,likes:action.data.likes};
+        return {...state,likes:action.data.userLikes};
     }
 
     function removeLikeSuccess(state,action){
-        return {...state,likes:action.data.likes};
+
+        return {...state,likes:action.data.userLikes};
     }
 
 
@@ -146,11 +145,11 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
     }
 
     function loadUserFromTokenSuccess(state, action){
-        return {...state, user : action.data.user , likes:action.data.likes };
+        return {...state, user : action.data.user , likes:action.data.userLikes };
     }
 
     function handleLogoutSuccess(state,action){
-        history.push('/feed');
+        history.push('/signin');
         return {...state, user :{} , likes:{} };
     }
 

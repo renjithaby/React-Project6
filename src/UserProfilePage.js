@@ -13,21 +13,30 @@ class UserProfilePage extends React.Component {
         this.state = {};
     }
     componentWillMount(props){
-        console.log("component will mount  UserProfilePage.......");
-       var follow = true,showFollow = true;
+        this.setFollowBtnState();
+    }
 
-       if(this.props.loggedInUser._id && this.props.loggedInUser._id !== this.props.profileUser._id ){
-           if(this.props.loggedInUser.following && this.props.loggedInUser.following.length>0)
-           {
-               if(this.props.loggedInUser.following.find(author => author.authorId === this.props.profileUser._id)){
+    componentWillReceiveProps(props){
+        console.log("component will mount  UserProfilePage.......");
+        this.setFollowBtnState(props);
+    }
+
+    setFollowBtnState(props){
+        props = props?props:this.props;
+        var follow = true,showFollow = true;
+
+        if(props.loggedInUser._id && props.loggedInUser._id !== props.profileUser._id ){
+            if(props.loggedInUser.following && props.loggedInUser.following.length>0)
+            {
+                if(props.loggedInUser.following.find(author => author.authorId ===props.profileUser._id)){
                     follow  = false;
-               }
-           }
-       }else{
-           follow = false;
-           showFollow = false;
-       }
-       this.setState({follow:follow,showFollow:showFollow});
+                }
+            }
+        }else{
+            follow = false;
+            showFollow = false;
+        }
+        this.setState({follow:follow,showFollow:showFollow});
         //this.props.getUserArticles(this.props.currentUser._id);//
     }
 

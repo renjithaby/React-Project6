@@ -36,7 +36,7 @@ class UserProfileHeader extends React.Component {
                     <h4>{this.props.profileUser.username}</h4>
                     <h4>{this.props.profileUser._id}</h4>
                     {this.props.profileState.showFollow ? <div>
-                    <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow" :"+unfollow"+this.props.profileUser.name}  </button>
+                    <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow" :"+unfollow"+this.props.profileUser.username}  </button>
                     </div>:null}
              </div>
 

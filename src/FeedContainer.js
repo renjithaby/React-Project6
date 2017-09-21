@@ -11,13 +11,13 @@ class Feed extends Component {
     constructor(props){
         super(props);
         console.log("im.calling feed conatiner..... constructor");
-        this.state = {currentFeed: "global"};
+        this.state = {currentFeed: this.props.articleData.feed};
 
     }
 
     componentWillMount(){
         console.log("calling the serCurrent Feeddd............................");
-        this.setCurrentFeed("global");
+        this.setCurrentFeed(this.props.articleData.feed);
     }
 
     componentWillReceiveProps(nextProps){

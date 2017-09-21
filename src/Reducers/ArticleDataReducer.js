@@ -2,11 +2,12 @@
  * Created by rabby on 12/09/2017.
  */
 import history from '../History'
-const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[],selectedProfile:{user:{},articles:[]},selectedArticle:{article:{}, comments:[]}}, action = {}) => {
+const ArticleDataReducer = (state = {feed:"global",globalFeed:[],yourFeed:[],selectedProfile:{user:{},articles:[]},selectedArticle:{article:{}, comments:[]}}, action = {}) => {
 
 	switch (action.type){
 
 		case "GLOBAL_FEED_SUCCESS" :
+
 		    return getGlobalFeedSuccess(state,action);
 
 		case "GLOBAL_FEED_FAILED" :
@@ -60,7 +61,7 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[],selectedProfile:{
 
 	function getGlobalFeedSuccess(state, action){
 
-		return {...state,globalFeed:action.data};
+		return {...state,feed:"global",globalFeed:action.data};
 	}
 
 
@@ -70,7 +71,7 @@ const ArticleDataReducer = (state = {globalFeed:[],yourFeed:[],selectedProfile:{
 	}
 
 	function getYourFeedSuccess(){
-		return {...state, yourFeed:action.data};
+		return {...state, feed:"your",yourFeed:action.data};
 	}
 
 	function getYourFeedFailed(){
