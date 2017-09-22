@@ -39,12 +39,13 @@ class ArticleItem extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-default">
+            <div className="panel panel-default article-item">
                 <div className="panel-heading">
-                <div className ="article-username" onClick = {this.showUserProfile.bind(this)}>
+                <div className ="username" onClick = {this.showUserProfile.bind(this)}>
+                     {this.props.isUserLoggedIn ? <button className="btn-green" onClick = {this.handleLike.bind(this)} > {this.isLiked()?"unlike":"like"} {this.props.article.likes}</button>:null}
                     <span>{ this.props.article.author.authorName }</span></div>
                     <span><small> {(new Date(this.props.article.time)).toUTCString()}</small> </span>
-                {this.props.isUserLoggedIn ? <button className="btn-green" onClick = {this.handleLike.bind(this)} > {this.isLiked()?"unlike":"like"} {this.props.article.likes}</button>:null}
+
                 </div>
                 <div className="panel-body">
                     <div className = "article-title" onClick = {this.showArticle.bind(this)}><h4>{ this.props.article.title }</h4></div>

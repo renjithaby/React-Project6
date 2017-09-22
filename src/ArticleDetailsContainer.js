@@ -18,30 +18,16 @@ class ArticleDetails extends Component {
 
     }
 
-    /*componentWillMount(props){
-        console.log("Article Details  ..........component will mount...");
-
-        var id = "59bf7fedc624ef2c5d93f556";
-            this.props.getArticleById(this.props.match.params.id);
-            this.props.getArticleComments(this.props.match.params.id);
-
-
-
-    } */
 
     componentDidMount(props){
-        console.log("Article Details  ..........component will mount...");
-
-        //var id = "59bf7fedc624ef2c5d93f556";
         this.props.getArticleById(this.props.match.params.id);
         this.props.getArticleComments(this.props.match.params.id);
-
-
-
     }
+
     componentWillReceiveProps(nextProps){
 
     }
+
     addNewComment(comment) {
 
         this.props.addNewComment({comment: comment,user:{ userid :this.props.userData._id, username:this.props.userData.username}, articleid :this.props.selectedArticle.article._id});
@@ -74,8 +60,6 @@ class ArticleDetails extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(" fetching the statess.....");
-
     return {
         userData: state.userData.user,
         selectedArticle: state.articleData.selectedArticle,

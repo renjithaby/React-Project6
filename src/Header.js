@@ -12,19 +12,19 @@ const LoggedOutView = props => {
 
             <ul className="nav navbar-nav pull-xs-right">
 
-                <li className=  {props.location.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
+                <li className=  {props.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
                     <Link to="/feed" className="nav-link">
                         Home
                     </Link>
                 </li>
 
-                <li className={props.location.pathname ==="/signin"?"nav-item active":"nav-item inactive"}>
+                <li className={props.pathname ==="/signin"?"nav-item active":"nav-item inactive"}>
                     <Link to="/signin" className="nav-link">
                         Sign in
                     </Link>
                 </li>
 
-                <li className={props.location.pathname ==="/signup"?"nav-item active":"nav-item inactive"}>
+                <li className={props.pathname ==="/signup"?"nav-item active":"nav-item inactive"}>
                     <Link to="/signup" className="nav-link">
                         Sign up
                     </Link>
@@ -44,13 +44,13 @@ const LoggedInView = props => {
 
                 <ul className="nav navbar-nav pull-xs-right">
 
-                    <li className={props.location.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
+                    <li className={props.pathname ==="/feed"?"nav-item active":"nav-item inactive"}>
                         <Link to="/feed" className="nav-link">
                             Home
                         </Link>
                     </li>
 
-                    <li className={props.location.pathname ==="/newpost"?"nav-item active":"nav-item inactive"}>
+                    <li className={props.pathname ==="/newpost"?"nav-item active":"nav-item inactive"}>
                         <Link to="/newpost" className="nav-link">
                             New Post
                         </Link>
@@ -84,18 +84,13 @@ class Header extends React.Component {
     handleLogout(){
 
         this.props.handleLogout();
-        //history.push('/feed/');
     }
 
     componentWillMount(props){
-        console.log(" componentWillReceiveProps Header");
-        console.log(this.props.location.pathname);
 
     }
 
     componentWillReceiveProps(nextProps){
-      console.log(" componentWillReceiveProps Header");
-      console.log(nextProps);
 
     }
 
@@ -108,7 +103,7 @@ class Header extends React.Component {
                         {this.props.appName}
                     </Link>
 
-                {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName} location={this.props.location}/>:null}
+                {!this.props.currentUser._id? <LoggedOutView currentUser={this.props.currentUser} appName ={this.props.appName} pathname={this.props.location?this.props.location.pathname:""}/>:null}
                 {this.props.currentUser._id? <LoggedInView showUserProfile = {this.showUserProfile.bind(this)}  location={this.props.location}
                     currentUser={this.props.currentUser}
                     handleLogout ={this.handleLogout.bind(this)}

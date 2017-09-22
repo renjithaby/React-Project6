@@ -66,16 +66,12 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
 
 
     function registerSuccess(state, action){
-
-       // var usr = action.data;
-
         history.push('/signin');
         return {...state};
     }
 
 
     function loginSuccess(state, action){
-        //var usr = action.data;
          history.push('/feed');
         return {...state, user : action.data.user , likes:action.data.userLikes };
     }
@@ -90,7 +86,6 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
     }
 
     function removeLikeSuccess(state,action){
-
         return {...state,likes:action.data.userLikes};
     }
 
@@ -120,8 +115,6 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
     }
  
      function addFollowingSuccess(state,action){
-       console.log("addFollowingSuccess...");
-       console.log(action.data);
        return {...state, user : action.data};
     }
 

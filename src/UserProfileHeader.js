@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ArticleItem from './ArticleItem';
+import history from './History';
 
 class UserProfileHeader extends React.Component {
 
@@ -27,16 +28,19 @@ class UserProfileHeader extends React.Component {
         }
     }
 
+    showUserProfile(){
+        //this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
+        history.push('/userprofile/'+this.props.profileUser._id);
+    }
 
 
 
     render() {
         return (
             <div className="jumbotron text-center">
-                    <h4>{this.props.profileUser.username}</h4>
-                    <h4>{this.props.profileUser._id}</h4>
+                    <div  onClick = {this.showUserProfile.bind(this)} className="username"> <span>{this.props.profileUser.username}</span> </div>
                     {this.props.profileState.showFollow ? <div>
-                    <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow" :"+unfollow"+this.props.profileUser.username}  </button>
+                    <button className="btn-green" onClick = {this.handleFollow.bind(this)} >{this.props.profileState.follow ?"+follow " :"+unfollow "+this.props.profileUser.username}  </button>
                     </div>:null}
              </div>
 

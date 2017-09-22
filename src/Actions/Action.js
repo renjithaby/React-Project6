@@ -246,20 +246,10 @@ export const handleLogout = (data) => {
 
 
 
-
-
-
-
-
-
-
-
 export function loginUser(usr) {
     return function(dispatch) {
         var resultData = {};
         return dataApi.login(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
 
             if(data.result === "failed"){
                 dispatch(loginFailed(data));
@@ -269,8 +259,6 @@ export function loginUser(usr) {
                 sessionStorage.setItem('jwt', resultData.token);
                 resultData.user = data.user;
                 dataApi.getUserLikes(resultData.user._id).then(data => {
-                    console.log("....user idddddd");
-                    console.log();
 
                     if(data.result === "failed"){
                         dispatch(loginFailed(data));
@@ -291,8 +279,6 @@ export function loginUser(usr) {
 export function registerUser(usr) {
     return function(dispatch) {
         return dataApi.register(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="failed"){
                 dispatch(registrationFailed(data));
             }else {
@@ -307,8 +293,6 @@ export function registerUser(usr) {
 export function getGlobalFeed() {
     return function(dispatch) {
         return dataApi.getGlobalFeed().then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(getGlobalFeedSuccess(data.article));
             }else {
@@ -323,8 +307,6 @@ export function getGlobalFeed() {
 export function getYourFeed(usr) {
     return function(dispatch) {
         return dataApi.getYourFeed(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(getYourFeedSuccess(data.article));
             }else {
@@ -341,8 +323,6 @@ export function getYourFeed(usr) {
 export function addNewArticle(article) {
     return function(dispatch) {
         return dataApi.addNewArticle(article).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(addNewArticleSuccess(data.article));
             }else if(data.result ==="failed"){
@@ -358,8 +338,6 @@ export function addNewArticle(article) {
 export function getUserArticles(userid) {
     return function(dispatch) {
         return dataApi.getUserArticles(userid).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(getUserArticlesSuccess(data.article));
             }else if(data.result ==="failed"){
@@ -375,8 +353,6 @@ export function getUserArticles(userid) {
 export function addFollowing(data) {
     return function(dispatch) {
         return dataApi.addFollowing(data).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(addFollowingSuccess(data.user));
             }else if(data.result ==="failed"){
@@ -391,8 +367,6 @@ export function addFollowing(data) {
 export function removeFollowing(data) {
     return function(dispatch) {
         return dataApi.removeFollowing(data).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(removeFollowingSuccess(data.user));
             }else if(data.result ==="failed"){
@@ -408,8 +382,6 @@ export function removeFollowing(data) {
 export function addLike(data) {
     return function(dispatch) {
         return dataApi.addLike(data).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(addLikeSuccess(data.resultData));
             }else if(data.result ==="failed"){
@@ -424,8 +396,6 @@ export function addLike(data) {
 export function removeLike(data) {
     return function(dispatch) {
         return dataApi.removeLike(data).then(data => {
-            console.log("....response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(removeLikeSuccess(data.resultData));
             }else if(data.result ==="failed"){
@@ -441,8 +411,6 @@ export function removeLike(data) {
 export function getArticleComments(articleid) {
     return function(dispatch) {
         return dataApi.getArticleComments(articleid).then(data => {
-            console.log(".... GET ARTICLE COMMENTS ......response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(getArticleCommentsSuccess(data.comments));
             }else if(data.result ==="failed"){
@@ -458,8 +426,6 @@ export function getArticleComments(articleid) {
 export function addNewComment(commentData) {
     return function(dispatch) {
         return dataApi.addNewComment(commentData).then(data => {
-            console.log(".... GET ARTICLE COMMENTS ......response datat");
-            console.log(data);
             if(data.result ==="success"){
                 dispatch(addNewCommentSuccess(data.comments));
             }else if(data.result ==="failed"){
@@ -519,19 +485,15 @@ export function loadUserFromToken(token) {
         var resultData = {};
         return dataApi.loadUserFromToken(token).then(data => {
              if(data.result === "failed"){
-                // if(data.message ===    "TOKEN_EXPIRED")
                  dispatch(handleLogout());
-               //dispatch(loadUserFromTokenFailed(data));
             }else {
                  resultData.user = data.user;
                 dataApi.getUserLikes(resultData.user._id).then(data => {
 
                     if(data.result === "failed"){
                         dispatch(handleLogout());;
-                       // dispatch(loadUserFromTokenFailed(data));
                     }else {
                         resultData.userLikes = data.userLikes;
-                        //dispatch(loginSuccess(resultData));
                         dispatch(loadUserFromTokenSuccess(resultData));
                     }
                 })
@@ -544,100 +506,3 @@ export function loadUserFromToken(token) {
 
 
 
-
-
-
-
-
-
-/*
-export function addAddress(usr) {
-    return function(dispatch) {
-        return dataApi.addAddress(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
-            if(data.result ==="failed"){
-                dispatch(addAddressFailed());
-            }else {
-                dispatch(addAddressSuccess(data));
-            }
-        }).catch(error => {
-            throw(error);
-        });
-    };
-}
-
-
-export function updateAddress(usr) {
-    return function(dispatch) {
-        return dataApi.updateAddress(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
-            if(data.result ==="failed"){
-                dispatch(updateAddressFailed());
-            }else {
-                dispatch(updateAddressSuccess(data));
-            }
-        }).catch(error => {
-            throw(error);
-        });
-    };
-}
-
-
-export function deleteAddress(usr) {
-    return function(dispatch) {
-        return dataApi.deleteAddress(usr).then(data => {
-            console.log("....response datat");
-            console.log(data);
-            if(data.result ==="failed"){
-                dispatch(deleteAddressFailed());
-            }else {
-                dispatch(deleteAddressSuccess(data));
-            }
-        }).catch(error => {
-            throw(error);
-        });
-    };
-}
-*/
-/*
- export const addTodo = text => {
- return {
- type: 'ADD_TODO',
- id: new Date(),
- text
- };
- }
- export const createTodo = (text) => {
- return {
- type: "CREATE_TODO",
- text
- };
- }
-
- export const deleteTodo = (id)=>{
- return {
- type :"DELETE_TODO",
- id
- };
- }
-
- export const updateTodo = (id) => {
- return{
- type: "UPDATE_TODO",
- id
- };
- }
-
- export const updateTodoFilter = () => {
- return {
- type :"UPDATE_TODO_FILTER"
- };
- }
-
-
- //REGISTER_USER
- //LOGIN_USER
-
- */

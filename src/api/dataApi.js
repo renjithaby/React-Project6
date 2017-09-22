@@ -20,8 +20,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-             console.log("login response......");
-            console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -29,19 +27,14 @@ class dataApi {
 
 
 
-       /* let myFirstPromise = new Promise((resolve, reject) => {
+       /* let myPromise = new Promise((resolve, reject) => {
             setTimeout(function () {
                 return(resolve(userData)); // Yay! Everything went well!
             }, 250);
         });
 
-        return myFirstPromise;*/
+        return myPromise;*/
 
-       /* myFirstPromise.then(() => {
-            return (this.userData);
-            /*
-        });
-        */
     }
 
 
@@ -57,8 +50,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-            console.log(" register user response......");
-            console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -77,8 +68,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-            console.log(" get global feed response......");
-            console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -99,8 +88,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-            console.log(" get Your Feed response......");
-            console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -109,8 +96,6 @@ class dataApi {
 
 
     static addNewArticle(article) {
-        console.log("addNewArticle............1111");
-        console.log(article);
 
         const request = new Request('http://localhost:3000/user/addarticle',{
             method: 'POST',
@@ -122,8 +107,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -133,7 +116,6 @@ class dataApi {
 
 
     static getUserArticles(userid) {
-        console.log("getUserArticles............1111" +userid);
 
         const request = new Request('http://localhost:3000/getuserarticles',{
             method: 'POST',
@@ -144,8 +126,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -165,8 +145,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -186,8 +164,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -197,8 +173,6 @@ class dataApi {
 
 
     static addLike(data) {
-        console.log("add like......"+ data.userid);
-        console.log(data);
         const request = new Request('http://localhost:3000/user/addlike',{
             method: 'POST',
             headers: new Headers({
@@ -209,8 +183,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -230,8 +202,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -240,7 +210,6 @@ class dataApi {
     }
 
     static getUserLikes(userid) {
-        console.log("getUserLikes............1111" +userid);
 
         const request = new Request('http://localhost:3000/user/getuserlikes',{
             method: 'POST',
@@ -252,8 +221,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -273,8 +240,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -283,8 +248,6 @@ class dataApi {
     }
 
     static addNewComment(commentData) {
-        console.log("addNewArticle............1111");
-        console.log(commentData);
 
         const request = new Request('http://localhost:3000/user/addcomment',{
             method: 'POST',
@@ -296,8 +259,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -317,8 +278,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -337,8 +296,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -358,8 +315,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            console.log(response);
             return response.json();
         }).catch(error => {
             return error;
@@ -378,8 +333,6 @@ class dataApi {
         });
 
         return fetch(request).then(response => {
-
-            //console.log(response);
             return response.json();
         }).catch(error => {
             return error;

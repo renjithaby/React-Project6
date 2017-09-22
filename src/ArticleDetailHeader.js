@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ArticleItem from './ArticleItem';
+import history from './History';
 
 class ArticleDetailHeader extends React.Component {
 
@@ -17,6 +18,10 @@ class ArticleDetailHeader extends React.Component {
         console.log(this.props);
     }
 
+    showUserProfile(){
+        //this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
+        history.push('/userprofile/'+this.props.article.author.authorId);
+    }
 
 
 
@@ -28,7 +33,7 @@ class ArticleDetailHeader extends React.Component {
                 <h4>{this.props.article.title}</h4>
 
                 <div>
-                <span> {this.props.article.author.authorName}</span>
+                <div onClick = {this.showUserProfile.bind(this)} className="username"><span> {this.props.article.author.authorName}</span> </div>
                 <span><small> {(new Date(this.props.article.time)).toUTCString()}</small></span>
                 </div>
 

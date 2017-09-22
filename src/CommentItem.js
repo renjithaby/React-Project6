@@ -3,24 +3,22 @@
  */
 
 import React from 'react';
-
+import history from './History';
 class CommentItem extends React.Component {
 
     constructor(props){
         super(props);
-        // this.state.liked = false;
     }
     componentWillMount(props){
 
-        console.log("this is the feed page  componentWillMount....." );
-        console.log(this.props.type);
-
-        //this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":this.props.type});
     }
 
     removeComment(){
-        console.log(this.props.comment._id);
         this.props.removeComment(this.props.comment._id);
+    }
+
+    showUserProfile(){
+        history.push('/userprofile/'+this.props.comment.user.userid);
     }
 
 
@@ -30,7 +28,7 @@ class CommentItem extends React.Component {
             <div className="panel panel-default">
 
                 <div className="panel-heading">
-                    <div> {this.props.comment.userid} </div>
+                    <div className="username" onClick = {this.showUserProfile.bind(this)}><span> {this.props.comment.user.username}</span> </div>
                 { this.props.loggedInUser._id === this.props.comment.user.userid ?<i  onClick = {this.removeComment.bind(this)} className="bin-icon fa fa-trash-o" aria-hidden="true"></i>:null}
                     <span><small> {(new Date(this.props.comment.time)).toUTCString()}</small></span>
                 </div>

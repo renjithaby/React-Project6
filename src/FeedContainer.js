@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header';
 import FeedPage  from './FeedPage';
-import Tab from './Tab';
 import * as Actions from  "./Actions/Action";
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route ,Switch, Link, hashHistory,browserHistory } from 'react-router-dom';
@@ -10,24 +9,27 @@ class Feed extends Component {
 
     constructor(props){
         super(props);
-        console.log("im.calling feed conatiner..... constructor");
         this.state = {currentFeed: this.props.articleData.feed};
 
     }
 
     componentWillMount(){
-        console.log("calling the serCurrent Feeddd............................");
-        this.setCurrentFeed(this.props.articleData.feed);
+        this.setCurrentFeed();
     }
 
     componentWillReceiveProps(nextProps){
 
-        console.log("next props....");
-        console.log(nextProps.userData);
     }
 
-    setCurrentFeed(name){
-     console.log("calling the serCurrent Feeddd");
+    setCurrentFeed(event){
+        var name = this.state.currentFeed;
+        if(event){
+            if(this.state.currentFeed ==="your"){
+                name = "global";
+            }else{
+                name = "your";
+            }
+        }
         this.setState({currentFeed: name});
         this.props.getFeed({"_id":this.props.userData.user._id,"feed":name});
 
@@ -52,12 +54,16 @@ class Feed extends Component {
 
     render() {
         return (
-            <div>
+            <div >
 
-                <ul className ="nav navbar-nav no-float">
-                    <li  className ="nav-item"> <Tab name={"your"}  active ={this.state.currentFeed === "your"?true:false} setCurrentFeed =  {this.setCurrentFeed.bind(this)}/> </li>
-                    <li className ="nav-item"><Tab name={"global"}  active ={this.state.currentFeed === "global"?true:false} setCurrentFeed = { this.setCurrentFeed.bind(this)}/></li>
-                </ul>
+                <div className="container feed-tab">
+                    <ul className="nav nav-tabs">
+                        <li onClick ={this.setCurrentFeed.bind(this)} className={this.state.currentFeed === "your"?"nav-item active":"nav-item"}><a> Your Feed</a></li>
+                        <li onClick ={this.setCurrentFeed.bind(this)}className={this.state.currentFeed === "global"?"active":""}><a> Global Feed </a></li>
+                    </ul>
+
+                </div>
+
                 <div>
                     <FeedPage isArticleLiked ={this.isArticleLiked.bind(this)}  type = {this.state.currentFeed} feed = {this.state.currentFeed==="global"?this.props.articleData.globalFeed: this.props.articleData.yourFeed}
                     handleLikes = {this.handleLikes.bind(this)}
@@ -71,8 +77,6 @@ class Feed extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(" fetching the statess.....");
-    console.log(state);
     return {
         articleData: state.articleData,
         userData:state.userData

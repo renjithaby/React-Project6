@@ -60,13 +60,11 @@ const ArticleDataReducer = (state = {feed:"global",globalFeed:[],yourFeed:[],sel
 
 
 	function getGlobalFeedSuccess(state, action){
-
 		return {...state,feed:"global",globalFeed:action.data};
 	}
 
 
 	function getGlobalFeedFailed(state, action){
-	//var usr = action.data;
 		return {...state};
 	}
 
@@ -85,41 +83,33 @@ const ArticleDataReducer = (state = {feed:"global",globalFeed:[],yourFeed:[],sel
     }
     
    function setSelectedArticle(state, action){
-
-        //var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
-        //return {...state,...obj1};
         var  obj1 = {...state.selectedArticle,article:action.data};
         return{...state,selectedArticle:obj1};
-       // history.push('/article/'+action.data._id);
+
     }
 
     function getArticleCommentsSuccess(state,action){
-
         var  obj1 = {...state.selectedArticle,comments:action.data};
-        //console.log(selectedArticle);
         return  {...state, selectedArticle:obj1};
-    }
-
-    function setSelectedProfile(state, action){
-
-        //var obj1= {"selectedArticle":{"article":action.data,"comments":[]}};
-        //return {...state,...obj1};
-        var  obj1 = {...state.selectedProfile,user:action.data};
-        return{...state,selectedProfile:obj1};
-       // history.push('/article/'+action.data._id);
-    }
-
-    function getUserArticleSuccess(state,action){
-
-        var  obj1 = {...state.selectedProfile, articles:action.data};
-        //console.log(selectedArticle);
-        return  {...state, selectedProfile:obj1};
     }
 
     function getArticleCommentsFailed(state,action){
         window.alert(action.data.message);
         return {...state};
     }
+
+    function setSelectedProfile(state, action){
+        var  obj1 = {...state.selectedProfile,user:action.data};
+        return{...state,selectedProfile:obj1};
+    }
+
+    function getUserArticleSuccess(state,action){
+
+        var  obj1 = {...state.selectedProfile, articles:action.data};
+        return  {...state, selectedProfile:obj1};
+    }
+
+
 
     function AddCommentsFailed(state,action){
         window.alert(action.data.message);

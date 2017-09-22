@@ -3,6 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+ul{
+    padding :0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
 
 .pull-xs-right{
     float :right;
@@ -30,18 +42,22 @@ body {
     background-color: lightgray;
 }
 
-.article-username {
+.username{
     color : Blue;
 }
-.article-username span{
+.username span{
     cursor:pointer
 }
-.article-username span:hover {
+.username span:hover {
     text-decoration:underline;
 }
 
 .article-title{
     text-align :left;
+    cursor:pointer
+}
+.article-title :hover{
+    text-decoration:underline;
 }
 .add-comment div{
 min-height:20px;
@@ -58,4 +74,12 @@ min-height:20px;
 .nav .active a{
     background-color: #eee;
     color:#23527c;
+}
+
+.feed-tab{
+    margin-bottom:20px;
+}
+
+.article-item .btn-green{
+    float:right;
 }

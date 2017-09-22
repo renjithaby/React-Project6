@@ -50,7 +50,7 @@ class NewPostPage extends React.Component {
 
                     <div className="form-group">
                         <label> description </label>
-                        <input className="form-control"  value={this.state.content} onChange={this.handleContentChange.bind(this)}/>
+                        <textarea className="form-control"  value={this.state.content} onChange={this.handleContentChange.bind(this)}/>
                     </div>
 
 
